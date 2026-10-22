@@ -1,0 +1,56 @@
+{
+  "name": "lmiv",
+  "version": "0.0.0",
+  "description": "Food declaration and nutrition from recipes under the EU food information regulation (LMIV, Regulation (EU) No 1169/2011)",
+  "keywords": [
+    "allergens",
+    "bakery",
+    "food-labelling",
+    "ingredient-list",
+    "lmiv",
+    "nutrition",
+    "quid"
+  ],
+  "homepage": "https://github.com/Flo0806/lmiv#readme",
+  "bugs": {
+    "url": "https://github.com/Flo0806/lmiv/issues"
+  },
+  "license": "MIT",
+  "author": "Florian Heuberger",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Flo0806/lmiv.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "test": "vp test",
+    "check": "vp check",
+    "prepublishOnly": "vp run build",
+    "prepare": "vp config"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "bumpp": "^12.3.0",
+    "typescript": "^7.0.2",
+    "vite-plus": "^1.2.0"
+  },
+  "packageManager": "pnpm@12.14.0",
+  "pnpm": {
+    "overrides": {
+      "vite": "npm:@voidzero-dev/vite-plus-core@latest",
+      "vitest": "npm:@voidzero-dev/vite-plus-test@latest"
+    }
+  }
+}
