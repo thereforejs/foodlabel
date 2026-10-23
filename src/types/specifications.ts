@@ -1,4 +1,5 @@
 import type { Decimal } from "@jasy/decy";
+import type { AdditiveClassId } from "./additives.ts";
 import type { AllergenId } from "./allergens.ts";
 
 export interface DeclarationOptions {
@@ -27,6 +28,10 @@ export interface ResolvedIngredient {
   /** For a group: the allergens of all its parts. */
   allergens: AllergenId[];
   unknown: string[];
-  /** Only set for a group. */
+  /** Only set for a group. A class entry like "Emulgatoren" is a group with `additiveClass`. */
   children?: ResolvedIngredient[];
+  /** Set on an additive and on its class entry. */
+  additiveClass?: AdditiveClassId;
+  /** Only set on an additive, e.g. "E 471". */
+  eNumber?: string;
 }

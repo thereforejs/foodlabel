@@ -1,0 +1,83 @@
+{
+  "language": "de",
+  "source": "Regulation (EC) No 1333/2008, Annex II; Regulation (EU) No 1169/2011, Annex VII, Part C",
+  "classes": {
+    "acid": { "singular": "Säuerungsmittel", "plural": "Säuerungsmittel" },
+    "acidityRegulator": { "singular": "Säureregulator", "plural": "Säureregulatoren" },
+    "antiCakingAgent": { "singular": "Trennmittel", "plural": "Trennmittel" },
+    "antiFoamingAgent": { "singular": "Schaumverhüter", "plural": "Schaumverhüter" },
+    "antioxidant": { "singular": "Antioxidationsmittel", "plural": "Antioxidationsmittel" },
+    "bulkingAgent": { "singular": "Füllstoff", "plural": "Füllstoffe" },
+    "colour": { "singular": "Farbstoff", "plural": "Farbstoffe" },
+    "emulsifier": { "singular": "Emulgator", "plural": "Emulgatoren" },
+    "emulsifyingSalts": { "singular": "Schmelzsalz", "plural": "Schmelzsalze" },
+    "firmingAgent": { "singular": "Festigungsmittel", "plural": "Festigungsmittel" },
+    "flavourEnhancer": { "singular": "Geschmacksverstärker", "plural": "Geschmacksverstärker" },
+    "flourTreatmentAgent": {
+      "singular": "Mehlbehandlungsmittel",
+      "plural": "Mehlbehandlungsmittel"
+    },
+    "foamingAgent": { "singular": "Schaummittel", "plural": "Schaummittel" },
+    "gellingAgent": { "singular": "Geliermittel", "plural": "Geliermittel" },
+    "glazingAgent": { "singular": "Überzugsmittel", "plural": "Überzugsmittel" },
+    "humectant": { "singular": "Feuchthaltemittel", "plural": "Feuchthaltemittel" },
+    "modifiedStarch": { "singular": "Modifizierte Stärke", "plural": "Modifizierte Stärken" },
+    "preservative": { "singular": "Konservierungsstoff", "plural": "Konservierungsstoffe" },
+    "propellantGas": { "singular": "Treibgas", "plural": "Treibgase" },
+    "raisingAgent": { "singular": "Backtriebmittel", "plural": "Backtriebmittel" },
+    "sequestrant": { "singular": "Komplexbildner", "plural": "Komplexbildner" },
+    "stabiliser": { "singular": "Stabilisator", "plural": "Stabilisatoren" },
+    "sweetener": { "singular": "Süßungsmittel", "plural": "Süßungsmittel" },
+    "thickener": { "singular": "Verdickungsmittel", "plural": "Verdickungsmittel" }
+  },
+  "additives": {
+    "E 170": { "name": "Calciumcarbonat", "synonyms": [] },
+    "E 200": { "name": "Sorbinsäure", "synonyms": [] },
+    "E 202": { "name": "Kaliumsorbat", "synonyms": [] },
+    "E 260": { "name": "Essigsäure", "synonyms": [] },
+    "E 262": { "name": "Natriumacetate", "synonyms": ["Natriumacetat", "Natriumdiacetat"] },
+    "E 263": { "name": "Calciumacetat", "synonyms": [] },
+    "E 270": { "name": "Milchsäure", "synonyms": [] },
+    "E 280": { "name": "Propionsäure", "synonyms": [] },
+    "E 281": { "name": "Natriumpropionat", "synonyms": [] },
+    "E 282": { "name": "Calciumpropionat", "synonyms": [] },
+    "E 300": { "name": "Ascorbinsäure", "synonyms": [] },
+    "E 301": { "name": "Natriumascorbat", "synonyms": [] },
+    "E 306": {
+      "name": "Stark tocopherolhaltige Extrakte",
+      "synonyms": ["Tocopherol", "Tocopherole"]
+    },
+    "E 322": {
+      "name": "Lecithine",
+      "synonyms": ["Lecithin", "Sojalecithin", "Sonnenblumenlecithin", "Rapslecithin"]
+    },
+    "E 330": { "name": "Citronensäure", "synonyms": ["Zitronensäure"] },
+    "E 334": { "name": "L(+)-Weinsäure", "synonyms": ["Weinsäure"] },
+    "E 336": { "name": "Kaliumtartrate", "synonyms": ["Kaliumtartrat", "Weinstein"] },
+    "E 341": { "name": "Calciumphosphate", "synonyms": ["Calciumphosphat", "Monocalciumphosphat"] },
+    "E 401": { "name": "Natriumalginat", "synonyms": [] },
+    "E 406": { "name": "Agar-Agar", "synonyms": ["Agar"] },
+    "E 407": { "name": "Carrageen", "synonyms": [] },
+    "E 410": { "name": "Johannisbrotkernmehl", "synonyms": [] },
+    "E 412": { "name": "Guarkernmehl", "synonyms": [] },
+    "E 415": { "name": "Xanthan", "synonyms": ["Xanthan Gum"] },
+    "E 422": { "name": "Glycerin", "synonyms": [] },
+    "E 440": { "name": "Pektine", "synonyms": ["Pektin"] },
+    "E 450": { "name": "Diphosphate", "synonyms": ["Diphosphat", "Dinatriumdiphosphat"] },
+    "E 466": { "name": "Natriumcarboxymethylcellulose", "synonyms": ["Carboxymethylcellulose"] },
+    "E 471": { "name": "Mono- und Diglyceride von Speisefettsäuren", "synonyms": [] },
+    "E 472e": {
+      "name": "Mono- und Diacetylweinsäureester von Mono- und Diglyceriden von Speisefettsäuren",
+      "synonyms": []
+    },
+    "E 481": { "name": "Natriumstearoyl-2-lactylat", "synonyms": [] },
+    "E 482": { "name": "Calciumstearoyl-2-lactylat", "synonyms": [] },
+    "E 500": { "name": "Natriumcarbonate", "synonyms": ["Natriumhydrogencarbonat", "Natron"] },
+    "E 503": {
+      "name": "Ammoniumcarbonate",
+      "synonyms": ["Ammoniumhydrogencarbonat", "Hirschhornsalz"]
+    },
+    "E 516": { "name": "Calciumsulfat", "synonyms": [] },
+    "E 920": { "name": "L-Cystein", "synonyms": [] }
+  }
+}
