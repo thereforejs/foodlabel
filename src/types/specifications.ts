@@ -1,4 +1,4 @@
-import type { Decimal, RoundingMode } from "@jasy/decy";
+import type { Decimal, RoundingMode } from "@thereforejs/decy";
 import type { AdditiveClassId } from "./additives.ts";
 import type { AllergenId, AllergenPiece } from "./allergens.ts";
 

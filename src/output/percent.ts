@@ -7,7 +7,7 @@ import {
   isZero,
   round,
   toDecimalString,
-} from "@jasy/decy";
+} from "@thereforejs/decy";
 import { localeOf, MAX_PERCENT_DECIMALS } from "../core/options.ts";
 import type { DeclarationOptions, PercentStep } from "../types/index.ts";
 

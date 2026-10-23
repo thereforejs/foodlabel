@@ -1,4 +1,4 @@
-import { type Decimal, decimal, divide, multiply, sum } from "@jasy/decy";
+import { type Decimal, decimal, divide, multiply, sum } from "@thereforejs/decy";
 import { createIngredientsList } from "../core/ingredients.ts";
 import { resolveOptions } from "../core/options.ts";
 import type { DeclarationOptions, Ingredient, ResolvedIngredient } from "../types/index.ts";
