@@ -11,9 +11,15 @@ import {
 import additivesDe from "../additives/de.json" with { type: "json" };
 import allergensDe from "../allergens/de.json" with { type: "json" };
 import { ALLERGEN_IDS } from "../allergens/ids.ts";
-import type { AdditiveClassId, Ingredient, ResolvedIngredient } from "../types/index.ts";
+import type {
+  AdditiveClassId,
+  DeclarationOptions,
+  Ingredient,
+  ResolvedIngredient,
+} from "../types/index.ts";
 import { createAdditiveCatalog } from "./additives.ts";
 import { createAllergenDetector, normalizeTerm } from "./allergens.ts";
+import { resolveOptions } from "./options.ts";
 
 const detect = createAllergenDetector(allergensDe);
 const catalog = createAdditiveCatalog(additivesDe);
@@ -63,6 +69,7 @@ function resolve(
   ingredients: Ingredient[],
   parent: Decimal | undefined,
   path: string,
+  options: DeclarationOptions,
 ): ResolvedIngredient[] {
   const items = ingredients.flatMap((ingredient, index) => {
     const at = `${path}[${index}]`;
@@ -72,7 +79,7 @@ function resolve(
       return [{ name: ingredient.name, weight, ...detect(ingredient.name), ...additive }];
     }
 
-    const children = resolve(ingredient.children, weight, `${at}.children`);
+    const children = resolve(ingredient.children, weight, `${at}.children`, options);
     const total = sum(children.map((child) => child.weight));
     if (!equals(total, weight)) {
       throw new Error(
@@ -81,7 +88,7 @@ function resolve(
     }
     // A product made of one ingredient is that ingredient: "Sauerteig" declares "Roggenmehl, Wasser".
     const isProduct = parent === undefined && ingredients.length === 1;
-    return ingredient.group && !isProduct
+    return (ingredient.group ?? options.group) && !isProduct
       ? [toGroup(ingredient.name, weight, present(children))]
       : children;
   });
@@ -111,6 +118,9 @@ function present(items: ResolvedIngredient[]): ResolvedIngredient[] {
 
 //#endregion
 
-export function createIngredientsList(ingredients: Ingredient[]): ResolvedIngredient[] {
-  return present(resolve(ingredients, undefined, ""));
+export function createIngredientsList(
+  ingredients: Ingredient[],
+  options: Partial<DeclarationOptions> = {},
+): ResolvedIngredient[] {
+  return present(resolve(ingredients, undefined, "", resolveOptions(options)));
 }
