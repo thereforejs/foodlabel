@@ -5,7 +5,7 @@ export interface Rule {
   message: (params: DiagnosticParams) => string;
 }
 
-/** Every diagnostic lmiv can raise. Codes are stable; apps translate them, not the messages. */
+/** Every diagnostic foodlabel can raise. Codes are stable; apps translate them, not the messages. */
 export const DIAGNOSTICS = {
   "share.withoutParent": {
     message: () => "a percentage needs a parent",

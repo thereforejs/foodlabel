@@ -1,12 +1,13 @@
 <p align="center">
-  <img src="./assets/logo.svg" alt="lmiv" width="128" height="128">
+  <img src="./assets/logo.svg" alt="foodlabel" width="128" height="128">
 </p>
 
-<h1 align="center">lmiv</h1>
+<h1 align="center">foodlabel</h1>
 
 <p align="center">
   Ingredient lists from recipes under the EU food information regulation<br>
-  (LMIV, Regulation (EU) No 1169/2011). It calculates, it never guesses.
+  (Regulation (EU) No 1169/2011, known as FIC, LMIV in German, INCO in French).<br>
+  It calculates, it never guesses.
 </p>
 
 > [!WARNING]
@@ -15,7 +16,7 @@
 
 ## What it does
 
-You pass a recipe as nested raw materials with their shares. lmiv returns the ingredient list for the
+You pass a recipe as nested raw materials with their shares. foodlabel returns the ingredient list for the
 label:
 
 - resolves nested recipes top down to exact weights (no floating point, via
@@ -33,13 +34,13 @@ label:
 ## Install
 
 ```sh
-npm install @thereforejs/lmiv
+npm install @thereforejs/foodlabel
 ```
 
 ## Usage
 
 ```ts
-import { createDeclaration } from "@thereforejs/lmiv";
+import { createDeclaration } from "@thereforejs/foodlabel";
 
 createDeclaration([
   { name: "Roggenmehl", quantity: 5000, unit: "weight", quid: true },
@@ -98,12 +99,12 @@ Weights are taken as they end up in the product: baking loss is the caller's bus
 
 ### Errors
 
-Whatever lmiv cannot decide refuses the whole result with a `DiagnosticError`. Its `diagnostics` carry
+Whatever foodlabel cannot decide refuses the whole result with a `DiagnosticError`. Its `diagnostics` carry
 a stable `code` to translate in your app, the `path` into your input and, where a regulation is the
 reason, its `source`:
 
 ```ts
-import { createDeclaration, DiagnosticError } from "@thereforejs/lmiv";
+import { createDeclaration, DiagnosticError } from "@thereforejs/foodlabel";
 
 try {
   createDeclaration([{ name: "Malz", quantity: 1, unit: "weight" }]);
@@ -116,10 +117,10 @@ try {
 
 ## Principles
 
-- **The lowest layer.** lmiv is a deterministic algorithm: same input, same output. It does not
+- **The lowest layer.** foodlabel is a deterministic algorithm: same input, same output. It does not
   estimate shares, interpret names or guess. Anything smart belongs in the application above, which
   passes its decisions in as input.
-- **In doubt, declare.** A missing allergen can kill. Where a rule is unclear, lmiv takes the side that
+- **In doubt, declare.** A missing allergen can kill. Where a rule is unclear, foodlabel takes the side that
   hides nothing, or refuses.
 - **Rules are data with a source.** Every rule cites its regulation, article or annex.
 

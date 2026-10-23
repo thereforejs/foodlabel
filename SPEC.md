@@ -1,4 +1,4 @@
-# lmiv: specification
+# foodlabel: specification
 
 Food declaration and nutrition from recipes, by the rules of the EU food information regulation
 (LMIV, Regulation (EU) No 1169/2011) and its German companions. Pure TypeScript, open source.

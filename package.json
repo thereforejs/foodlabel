@@ -1,25 +1,29 @@
 {
-  "name": "@thereforejs/lmiv",
+  "name": "@thereforejs/foodlabel",
   "version": "0.0.0",
-  "description": "Food declaration and nutrition from recipes under the EU food information regulation (LMIV, Regulation (EU) No 1169/2011)",
+  "description": "Food declaration and nutrition from recipes under the EU food information regulation (Regulation (EU) No 1169/2011, known as FIC, LMIV or INCO)",
   "keywords": [
+    "1169-2011",
     "allergens",
     "bakery",
+    "fic",
+    "food-information",
     "food-labelling",
+    "inco",
     "ingredient-list",
     "lmiv",
     "nutrition",
     "quid"
   ],
-  "homepage": "https://github.com/thereforejs/lmiv#readme",
+  "homepage": "https://github.com/thereforejs/foodlabel#readme",
   "bugs": {
-    "url": "https://github.com/thereforejs/lmiv/issues"
+    "url": "https://github.com/thereforejs/foodlabel/issues"
   },
   "license": "MIT",
   "author": "Florian Heuberger",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thereforejs/lmiv.git"
+    "url": "git+https://github.com/thereforejs/foodlabel.git"
   },
   "files": [
     "dist"
