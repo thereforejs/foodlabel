@@ -9,6 +9,7 @@ import {
   toDecimalString,
 } from "@thereforejs/decy";
 import { localeOf, MAX_PERCENT_DECIMALS } from "../core/options.ts";
+import { fail } from "../diagnostics/fail.ts";
 import type { DeclarationOptions, PercentStep } from "../types/index.ts";
 
 // A share this small is almost always a recipe error; printing it would spread it to every label.
@@ -20,9 +21,13 @@ function decimalsFor(value: Decimal, steps: PercentStep[]): number {
 }
 
 /** A share in percent as label text, e.g. "21 %". Never "0 %". */
-export function formatPercent(value: Decimal, options: DeclarationOptions): string {
+export function formatPercent(
+  value: Decimal,
+  options: DeclarationOptions,
+  of: { name: string; path: string },
+): string {
   if (compare(value, MIN_SHARE) < 0) {
-    throw new Error(`share ${toDecimalString(value)} % is below 0.001 %, check the recipe`);
+    fail("share.belowMinimum", of.path, { name: of.name, share: toDecimalString(value) });
   }
   const at = (decimals: number) => round(value, { scale: decimals, mode: options.rounding });
   let decimals = decimalsFor(value, options.percentDecimals);

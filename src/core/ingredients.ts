@@ -11,6 +11,7 @@ import {
 import additivesDe from "../additives/de.json" with { type: "json" };
 import allergensDe from "../allergens/de.json" with { type: "json" };
 import { ALLERGEN_IDS } from "../allergens/ids.ts";
+import { fail } from "../diagnostics/fail.ts";
 import type {
   AdditiveClassId,
   DeclarationOptions,
@@ -29,18 +30,20 @@ const catalog = createAdditiveCatalog(additivesDe);
 function toGrams(ingredient: Ingredient, parent: Decimal | undefined, path: string): Decimal {
   const quantity = fromNumber(ingredient.quantity);
   if (ingredient.unit === "weight") return quantity;
-  if (!parent) throw new Error(`${path}: a percentage needs a parent`);
+  if (!parent) fail("share.withoutParent", path);
   return percentageOf(parent, quantity);
 }
 
 function toGroup(
   name: string,
+  path: string,
   weight: Decimal,
   children: ResolvedIngredient[],
 ): ResolvedIngredient {
   const allergens = new Set(children.flatMap((child) => child.allergens));
   return {
     name,
+    path,
     weight,
     allergens: ALLERGEN_IDS.filter((id) => allergens.has(id)),
     unknown: children.flatMap((child) => child.unknown),
@@ -85,21 +88,30 @@ function resolve(
       const match = detect(ingredient.name);
       const unknown = additive && catalog.knows(ingredient.name) ? [] : match.unknown;
       return [
-        { name: ingredient.name, weight, ...match, unknown, ...additive, quid: ingredient.quid },
+        {
+          name: ingredient.name,
+          path: at,
+          weight,
+          ...match,
+          unknown,
+          ...additive,
+          quid: ingredient.quid,
+        },
       ];
     }
 
     const children = resolve(ingredient.children, weight, `${at}.children`, options);
     const total = sum(children.map((child) => child.weight));
     if (!equals(total, weight)) {
-      throw new Error(
-        `${at}.children: add up to ${toDecimalString(total)} g, expected ${toDecimalString(weight)} g`,
-      );
+      fail("share.sumNot100", `${at}.children`, {
+        sum: toDecimalString(total),
+        expected: toDecimalString(weight),
+      });
     }
     // A product made of one ingredient is that ingredient: "Sauerteig" declares "Roggenmehl, Wasser".
     const isProduct = parent === undefined && ingredients.length === 1;
     return (ingredient.group ?? options.group) && !isProduct
-      ? [{ ...toGroup(ingredient.name, weight, present(children)), quid: ingredient.quid }]
+      ? [{ ...toGroup(ingredient.name, at, weight, present(children)), quid: ingredient.quid }]
       : children;
   });
   return merge(items);
@@ -121,7 +133,10 @@ function present(items: ResolvedIngredient[]): ResolvedIngredient[] {
   for (const [id, members] of classes) {
     const weight = sum(members.map((member) => member.weight));
     const label = catalog.classLabel(id, members.length);
-    entries.push({ ...toGroup(label, weight, byWeight(members)), additiveClass: id });
+    entries.push({
+      ...toGroup(label, members[0]?.path ?? "", weight, byWeight(members)),
+      additiveClass: id,
+    });
   }
   return byWeight(entries);
 }
