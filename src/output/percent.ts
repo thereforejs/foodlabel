@@ -8,10 +8,8 @@ import {
   round,
   toDecimalString,
 } from "@jasy/decy";
-import { MAX_PERCENT_DECIMALS } from "../core/options.ts";
+import { localeOf, MAX_PERCENT_DECIMALS } from "../core/options.ts";
 import type { DeclarationOptions, PercentStep } from "../types/index.ts";
-
-const LOCALES = { "EU-DE": "de-DE" } satisfies Record<DeclarationOptions["jurisdiction"], string>;
 
 // A share this small is almost always a recipe error; printing it would spread it to every label.
 const MIN_SHARE = decimal("0.001");
@@ -32,6 +30,6 @@ export function formatPercent(value: Decimal, options: DeclarationOptions): stri
   decimals = decimalsFor(at(decimals), options.percentDecimals);
   while (isZero(at(decimals))) decimals++;
 
-  const text = format(at(decimals), LOCALES[options.jurisdiction], { useGrouping: false });
+  const text = format(at(decimals), localeOf(options), { useGrouping: false });
   return options.percentSpace ? `${text} %` : `${text}%`;
 }

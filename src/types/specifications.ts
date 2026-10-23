@@ -1,11 +1,13 @@
 import type { Decimal, RoundingMode } from "@jasy/decy";
 import type { AdditiveClassId } from "./additives.ts";
-import type { AllergenId } from "./allergens.ts";
+import type { AllergenId, AllergenPiece } from "./allergens.ts";
 
 export interface DeclarationOptions {
   jurisdiction: "EU-DE";
   format: "text" | "markdown" | "html";
   highlight: "bold" | "uppercase"; // both are legal; the baker chooses
+  /** "ROGGENMEHL" or "ROGGENmehl"; marking the part is enough (2017/C 428/01 No 16). */
+  highlightScope: "name" | "allergen";
   additives: "name" | "eNumber"; // "Emulgator: Sojalecithin" or "Emulgator: E 322 (SOJA)"
   /** Default for `Ingredient.group`; the ingredient's own setting wins. */
   group: boolean;
@@ -45,6 +47,9 @@ export interface ResolvedIngredient {
   /** For a group: the allergens of all its parts. */
   allergens: AllergenId[];
   unknown: string[];
+  /** Where the allergens sit in `name`. Empty for a group, whose name is no ingredient. */
+  pieces: AllergenPiece[];
+  quid?: boolean;
   /** Only set for a group. A class entry like "Emulgatoren" is a group with `additiveClass`. */
   children?: ResolvedIngredient[];
   /** Set on an additive and on its class entry. */

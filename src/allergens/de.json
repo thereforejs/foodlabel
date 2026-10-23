@@ -8,28 +8,30 @@
         "Weizen",
         "Hartweizen",
         "Weichweizen",
-        "Dinkel",
-        "Grünkern",
-        "Khorasan",
-        "Kamut",
-        "Emmer",
-        "Einkorn",
         "Roggen",
         "Gerste",
         "Gersten",
         "Hafer",
-        "Triticale",
-        "Malz",
-        "Malze",
-        "Gluten",
         "Weizeneiweiß",
         "Weizenkleber",
-        "Seitan",
-        "Bulgur",
-        "Couscous",
-        "Grieß",
         "Hafermilch"
-      ]
+      ],
+      "indirect": {
+        "Dinkel": "Weizen",
+        "Grünkern": "Weizen",
+        "Khorasan": "Weizen",
+        "Kamut": "Weizen",
+        "Emmer": "Weizen",
+        "Einkorn": "Weizen",
+        "Triticale": "Weizen, Roggen",
+        "Seitan": "Weizen",
+        "Bulgur": "Weizen",
+        "Couscous": "Weizen",
+        "Grieß": "Weizen",
+        "Malz": null,
+        "Malze": null,
+        "Gluten": null
+      }
     },
     "crustaceans": {
       "label": "Krebstiere",
@@ -51,7 +53,8 @@
         "Scampi",
         "Kaisergranat",
         "Krill"
-      ]
+      ],
+      "short": "Krebstiere"
     },
     "eggs": {
       "label": "Eier",
@@ -65,7 +68,8 @@
         "Eidotter",
         "Eiklar",
         "Eiweiß"
-      ]
+      ],
+      "short": "Ei"
     },
     "fish": {
       "label": "Fische",
@@ -87,24 +91,23 @@
         "Forelle",
         "Scholle",
         "Fischgelatine"
-      ]
+      ],
+      "short": "Fisch"
     },
     "peanuts": {
       "label": "Erdnüsse",
-      "terms": ["Erdnuss", "Erdnüsse", "Erdnussbutter"]
+      "terms": ["Erdnuss", "Erdnüsse", "Erdnussbutter"],
+      "short": "Erdnuss"
     },
     "soybeans": {
       "label": "Sojabohnen",
-      "terms": [
-        "Soja",
-        "Sojabohne",
-        "Sojabohnen",
-        "Sojalecithin",
-        "Sojaeiweiß",
-        "Tofu",
-        "Edamame",
-        "Miso"
-      ]
+      "terms": ["Soja", "Sojabohne", "Sojabohnen", "Sojalecithin", "Sojaeiweiß"],
+      "indirect": {
+        "Tofu": "Soja",
+        "Edamame": "Soja",
+        "Miso": "Soja"
+      },
+      "short": "Soja"
     },
     "milk": {
       "label": "Milch",
@@ -121,28 +124,26 @@
         "Joghurt",
         "Kefir",
         "Käse",
-        "Molke",
-        "Molken",
-        "Laktose",
-        "Lactose",
-        "Kasein",
-        "Casein",
         "Milcheiweiß"
-      ]
+      ],
+      "indirect": {
+        "Molke": "Milch",
+        "Molken": "Milch",
+        "Laktose": "Milch",
+        "Lactose": "Milch",
+        "Kasein": "Milch",
+        "Casein": "Milch"
+      },
+      "short": "Milch"
     },
     "nuts": {
       "label": "Schalenfrüchte",
       "terms": [
-        "Schalenfrüchte",
-        "Nuss",
-        "Nüsse",
         "Mandel",
         "Mandeln",
         "Mandelmilch",
-        "Marzipan",
         "Haselnuss",
         "Haselnüsse",
-        "Nougat",
         "Walnuss",
         "Walnüsse",
         "Cashew",
@@ -159,19 +160,33 @@
         "Macadamianüsse",
         "Queenslandnuss",
         "Queenslandnüsse"
-      ]
+      ],
+      "indirect": {
+        "Schalenfrüchte": null,
+        "Nuss": null,
+        "Nüsse": null,
+        "Nougat": null,
+        "Marzipan": "Mandel"
+      }
     },
     "celery": {
       "label": "Sellerie",
-      "terms": ["Sellerie", "Knollensellerie", "Staudensellerie"]
+      "terms": ["Sellerie", "Knollensellerie", "Staudensellerie"],
+      "short": "Sellerie"
     },
     "mustard": {
       "label": "Senf",
-      "terms": ["Senf", "Senfsaat", "Senfkörner"]
+      "terms": ["Senf", "Senfsaat", "Senfkörner"],
+      "short": "Senf"
     },
     "sesame": {
       "label": "Sesamsamen",
-      "terms": ["Sesam", "Sesamsamen", "Sesamsaat", "Tahin", "Tahini"]
+      "terms": ["Sesam", "Sesamsamen", "Sesamsaat"],
+      "indirect": {
+        "Tahin": "Sesam",
+        "Tahini": "Sesam"
+      },
+      "short": "Sesam"
     },
     "sulphites": {
       "label": "Schwefeldioxid und Sulphite",
@@ -188,11 +203,13 @@
         "Calciumsulfit",
         "Calciumhydrogensulfit",
         "Kaliumhydrogensulfit"
-      ]
+      ],
+      "short": "Sulfite"
     },
     "lupin": {
       "label": "Lupinen",
-      "terms": ["Lupine", "Lupinen", "Lupineneiweiß"]
+      "terms": ["Lupine", "Lupinen", "Lupineneiweiß"],
+      "short": "Lupine"
     },
     "molluscs": {
       "label": "Weichtiere",
@@ -215,7 +232,8 @@
         "Schnecke",
         "Schnecken",
         "Weinbergschnecke"
-      ]
+      ],
+      "short": "Weichtiere"
     }
   },
   "neutral": [

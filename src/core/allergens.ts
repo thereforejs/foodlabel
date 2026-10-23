@@ -1,47 +1,92 @@
 import { ALLERGEN_IDS } from "../allergens/ids.ts";
-import type { AllergenId, AllergenMatch, AllergenVocabulary } from "../types/index.ts";
+import type {
+  AllergenId,
+  AllergenMatch,
+  AllergenPiece,
+  AllergenVocabulary,
+} from "../types/index.ts";
+
+const normalizeChar = (char: string) => char.toLocaleLowerCase("de-DE").replaceAll("ß", "ss");
 
 export function normalizeTerm(term: string): string {
-  return term.normalize("NFC").toLocaleLowerCase("de-DE").replaceAll("ß", "ss").trim();
+  return normalizeChar(term.normalize("NFC")).trim();
+}
+
+// Normalizing changes lengths ("ß" -> "ss"), so every normalized position remembers its origin.
+function normalizeWithOrigin(name: string) {
+  let text = "";
+  const origin: number[] = [];
+  let index = 0;
+  for (const char of name) {
+    const normalized = normalizeChar(char);
+    text += normalized;
+    for (let i = 0; i < normalized.length; i++) origin.push(index);
+    index += char.length;
+  }
+  origin.push(index);
+  return { text, origin };
+}
+
+interface Entry {
+  allergens: AllergenId[];
+  adds?: string | null;
 }
 
 export function createAllergenDetector(vocabulary: AllergenVocabulary) {
-  const pieces = new Map<string, AllergenId[]>();
-  for (const term of vocabulary.neutral) pieces.set(normalizeTerm(term), []);
+  const entries = new Map<string, Entry>();
+  for (const term of vocabulary.neutral) entries.set(normalizeTerm(term), { allergens: [] });
   for (const id of ALLERGEN_IDS) {
-    for (const term of vocabulary.allergens[id].terms) pieces.set(normalizeTerm(term), [id]);
+    const words = vocabulary.allergens[id];
+    for (const term of words.terms) entries.set(normalizeTerm(term), { allergens: [id] });
+    for (const [term, adds] of Object.entries(words.indirect ?? {})) {
+      entries.set(normalizeTerm(term), { allergens: [id], adds });
+    }
   }
 
   // Fewest pieces wins; ties are unioned, so an ambiguous split declares rather than hides.
-  function split(word: string): Set<AllergenId> | undefined {
-    const best: ({ count: number; allergens: Set<AllergenId> } | undefined)[] = [];
-    best[word.length] = { count: 0, allergens: new Set() };
+  function split(word: string) {
+    type Found = { start: number; end: number; entry: Entry };
+    const best: ({ count: number; pieces: Found[] } | undefined)[] = [];
+    best[word.length] = { count: 0, pieces: [] };
     for (let start = word.length - 1; start >= 0; start--) {
       for (let end = start + 1; end <= word.length; end++) {
-        const piece = pieces.get(word.slice(start, end));
+        const entry = entries.get(word.slice(start, end));
         const rest = best[end];
-        if (!piece || !rest) continue;
+        if (!entry || !rest) continue;
         const count = rest.count + 1;
+        const pieces = [{ start, end, entry }, ...rest.pieces];
         const current = best[start];
-        if (!current || count < current.count) {
-          best[start] = { count, allergens: new Set([...piece, ...rest.allergens]) };
-        } else if (count === current.count) {
-          for (const id of [...piece, ...rest.allergens]) current.allergens.add(id);
-        }
+        if (!current || count < current.count) best[start] = { count, pieces };
+        else if (count === current.count) current.pieces.push(...pieces);
       }
     }
-    return best[0]?.allergens;
+    return best[0]?.pieces;
   }
 
   return function detect(name: string): AllergenMatch {
-    const found = new Set<AllergenId>();
+    const { text, origin } = normalizeWithOrigin(name.normalize("NFC"));
+    const pieces: AllergenPiece[] = [];
     const unknown: string[] = [];
-    for (const word of normalizeTerm(name).split(/[\s-]+/)) {
-      if (word === "" || /^\d+$/.test(word)) continue;
-      const allergens = split(word);
-      if (allergens) for (const id of allergens) found.add(id);
-      else unknown.push(word);
+    for (const match of text.matchAll(/[^\s-]+/g)) {
+      const word = match[0];
+      if (/^\d+$/.test(word)) continue;
+      const found = split(word);
+      if (!found) {
+        unknown.push(word);
+        continue;
+      }
+      for (const { start, end, entry } of found) {
+        for (const allergen of entry.allergens) {
+          const at = {
+            allergen,
+            start: origin[match.index + start],
+            end: origin[match.index + end],
+          };
+          pieces.push(entry.adds === undefined ? at : { ...at, adds: entry.adds });
+        }
+      }
     }
-    return { allergens: ALLERGEN_IDS.filter((id) => found.has(id)), unknown };
+    const named = new Set(pieces.map((piece) => piece.allergen));
+    return { allergens: ALLERGEN_IDS.filter((id) => named.has(id)), unknown, pieces };
   };
 }

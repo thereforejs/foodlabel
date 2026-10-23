@@ -44,6 +44,7 @@ function toGroup(
     weight,
     allergens: ALLERGEN_IDS.filter((id) => allergens.has(id)),
     unknown: children.flatMap((child) => child.unknown),
+    pieces: [],
     children,
   };
 }
@@ -59,7 +60,12 @@ function merge(items: ResolvedIngredient[]): ResolvedIngredient[] {
         ? `${item.eNumber} ${item.additiveClass}`
         : normalizeTerm(item.name);
     const known = byKey.get(key);
-    byKey.set(key, known ? { ...known, weight: add(known.weight, item.weight) } : item);
+    const merged = known && {
+      ...known,
+      weight: add(known.weight, item.weight),
+      quid: known.quid || item.quid,
+    };
+    byKey.set(key, merged ?? item);
   });
   return [...byKey.values()];
 }
@@ -76,7 +82,11 @@ function resolve(
     const weight = toGrams(ingredient, parent, at);
     if (!ingredient.children?.length) {
       const additive = catalog.identify(ingredient, at);
-      return [{ name: ingredient.name, weight, ...detect(ingredient.name), ...additive }];
+      const match = detect(ingredient.name);
+      const unknown = additive && catalog.knows(ingredient.name) ? [] : match.unknown;
+      return [
+        { name: ingredient.name, weight, ...match, unknown, ...additive, quid: ingredient.quid },
+      ];
     }
 
     const children = resolve(ingredient.children, weight, `${at}.children`, options);
@@ -89,7 +99,7 @@ function resolve(
     // A product made of one ingredient is that ingredient: "Sauerteig" declares "Roggenmehl, Wasser".
     const isProduct = parent === undefined && ingredients.length === 1;
     return (ingredient.group ?? options.group) && !isProduct
-      ? [toGroup(ingredient.name, weight, present(children))]
+      ? [{ ...toGroup(ingredient.name, weight, present(children)), quid: ingredient.quid }]
       : children;
   });
   return merge(items);

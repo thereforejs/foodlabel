@@ -2,10 +2,15 @@ import type { DeclarationOptions, PercentStep } from "../types/index.ts";
 
 export const MAX_PERCENT_DECIMALS = 3;
 
+const LOCALES = { "EU-DE": "de-DE" } satisfies Record<DeclarationOptions["jurisdiction"], string>;
+
+export const localeOf = (options: DeclarationOptions) => LOCALES[options.jurisdiction];
+
 const defaults: DeclarationOptions = {
   jurisdiction: "EU-DE",
   format: "text",
   highlight: "uppercase",
+  highlightScope: "name",
   additives: "name",
   group: false,
   quid: "before",

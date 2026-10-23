@@ -3,12 +3,22 @@ import { describe, expect, test } from "vite-plus/test";
 import de from "../src/allergens/de.json" with { type: "json" };
 import { ALLERGEN_IDS } from "../src/allergens/ids.ts";
 import { createAllergenDetector, normalizeTerm } from "../src/core/allergens.ts";
+import type { AllergenVocabulary } from "../src/types/index.ts";
 
-const detect = createAllergenDetector(de);
+const vocabulary: AllergenVocabulary = de;
+const detector = createAllergenDetector(vocabulary);
+const detect = (name: string) => {
+  const { allergens, unknown } = detector(name);
+  return { allergens, unknown };
+};
 
 describe("vocabulary de", () => {
   test("every term lives in exactly one list", () => {
-    const lists = [...ALLERGEN_IDS.map((id) => de.allergens[id].terms), de.neutral];
+    const lists = [
+      ...ALLERGEN_IDS.map((id) => de.allergens[id].terms),
+      ...ALLERGEN_IDS.map((id) => Object.keys(vocabulary.allergens[id].indirect ?? {})),
+      de.neutral,
+    ];
     const seen = new Map<string, number>();
     for (const term of lists.flat())
       seen.set(normalizeTerm(term), (seen.get(normalizeTerm(term)) ?? 0) + 1);
@@ -65,6 +75,21 @@ describe("detect", () => {
   test("case, ß and whitespace do not matter", () => {
     expect(detect("  WEIZENEIWEISS ")).toEqual(detect("Weizeneiweiß"));
     expect(detect("Weizenmehl Type 550")).toEqual({ allergens: ["gluten"], unknown: [] });
+  });
+});
+
+describe("pieces", () => {
+  test("positions point into the original name, also after ß became ss", () => {
+    const name = "Grieß-Weizenmehl";
+    const { pieces } = detector(name);
+    expect(pieces.map((piece) => [name.slice(piece.start, piece.end), piece.adds])).toEqual([
+      ["Grieß", "Weizen"],
+      ["Weizen", undefined],
+    ]);
+  });
+
+  test("an open source is marked with null", () => {
+    expect(detector("Gerstenmalz").pieces.map((piece) => piece.adds)).toEqual([undefined, null]);
   });
 });
 

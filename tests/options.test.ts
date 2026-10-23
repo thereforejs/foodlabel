@@ -21,6 +21,7 @@ describe("resolveOptions", () => {
       jurisdiction: "EU-DE",
       format: "text",
       highlight: "uppercase",
+      highlightScope: "name",
       additives: "name",
       group: false,
       quid: "before",

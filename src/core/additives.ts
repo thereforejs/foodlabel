@@ -42,6 +42,11 @@ export function createAdditiveCatalog(vocabulary: AdditiveVocabulary) {
       return { eNumber, additiveClass };
     },
 
+    /** A known additive name has no unknown words, even when it reads like "Mono- und ...". */
+    knows(name: string): boolean {
+      return byName.has(normalizeTerm(name));
+    },
+
     classLabel(id: AdditiveClassId, members: number): string {
       return members === 1 ? vocabulary.classes[id].singular : vocabulary.classes[id].plural;
     },
