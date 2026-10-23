@@ -1,4 +1,5 @@
 import { ADDITIVE_CLASS_IDS } from "../additives/classes.ts";
+import { fail } from "../diagnostics/fail.ts";
 import type { AdditiveClassId, AdditiveVocabulary, Ingredient } from "../types/index.ts";
 import { normalizeTerm } from "./allergens.ts";
 
@@ -29,15 +30,13 @@ export function createAdditiveCatalog(vocabulary: AdditiveVocabulary) {
       if (ingredient.eNumberCategory === undefined) return undefined;
       const additiveClass = classes.get(normalizeTerm(ingredient.eNumberCategory));
       if (!additiveClass) {
-        throw new Error(
-          `${path}: "${ingredient.eNumberCategory}" is no additive class (Annex VII Part C)`,
-        );
+        fail("additive.functionNotAllowed", path, { class: ingredient.eNumberCategory });
       }
       const eNumber = ingredient.eNumber
         ? toENumber(ingredient.eNumber)
         : byName.get(normalizeTerm(ingredient.name));
       if (!eNumber || !(eNumber in vocabulary.additives)) {
-        throw new Error(`${path}: "${ingredient.eNumber ?? ingredient.name}" is no known additive`);
+        fail("additive.unknown", path, { name: ingredient.eNumber ?? ingredient.name });
       }
       return { eNumber, additiveClass };
     },

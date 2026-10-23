@@ -96,6 +96,24 @@ Weights are taken as they end up in the product: baking loss is the caller's bus
 | `percentSpace`    | `"21 %"` with a no-break space, or `"21%"`                     | `true`                           |
 | `rounding`        | any [decy](https://github.com/thereforejs/decy) rounding mode  | `"floor"`                        |
 
+### Errors
+
+Whatever lmiv cannot decide refuses the whole result with a `DiagnosticError`. Its `diagnostics` carry
+a stable `code` to translate in your app, the `path` into your input and, where a regulation is the
+reason, its `source`:
+
+```ts
+import { createDeclaration, DiagnosticError } from "@thereforejs/lmiv";
+
+try {
+  createDeclaration([{ name: "Malz", quantity: 1, unit: "weight" }]);
+} catch (error) {
+  if (error instanceof DiagnosticError) error.diagnostics;
+  // [{ code: "allergen.sourceMissing", level: "error", path: "[0]",
+  //    params: { name: "Malz", allergen: "gluten" }, source: "Regulation (EU) No 1169/2011, Annex II; ..." }]
+}
+```
+
 ## Principles
 
 - **The lowest layer.** lmiv is a deterministic algorithm: same input, same output. It does not

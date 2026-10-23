@@ -1,5 +1,6 @@
 import allergensDe from "../allergens/de.json" with { type: "json" };
 import { normalizeTerm } from "../core/allergens.ts";
+import { fail } from "../diagnostics/fail.ts";
 import type { AllergenVocabulary, ResolvedIngredient } from "../types/index.ts";
 
 const vocabulary: AllergenVocabulary = allergensDe;
@@ -21,9 +22,7 @@ export function allergenWords(item: ResolvedIngredient, all: boolean): string[] 
       // Annex II requires the kind: "Malz" alone can be barley or wheat (2017/C 428/01 No 8, 13).
       if (adds === null) {
         if (own.length === 0) {
-          throw new Error(
-            `"${item.name}" contains ${vocabulary.allergens[id].label} but does not say which kind, use a more specific name`,
-          );
+          fail("allergen.sourceMissing", item.path, { name: item.name, allergen: id });
         }
         continue;
       }

@@ -17,7 +17,11 @@ const bread: Ingredient[] = [
 
 describe("public api", () => {
   test("only what callers need is exported", () => {
-    expect(Object.keys(lmiv).sort()).toEqual(["createDeclaration", "createIngredientsList"]);
+    expect(Object.keys(lmiv).sort()).toEqual([
+      "DiagnosticError",
+      "createDeclaration",
+      "createIngredientsList",
+    ]);
   });
 
   test("declaration from the outside", () => {

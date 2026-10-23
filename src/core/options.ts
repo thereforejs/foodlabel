@@ -1,3 +1,4 @@
+import { fail } from "../diagnostics/fail.ts";
 import type { DeclarationOptions, PercentStep } from "../types/index.ts";
 
 export const MAX_PERCENT_DECIMALS = 3;
@@ -27,19 +28,19 @@ const defaults: DeclarationOptions = {
 function resolveSteps(steps: PercentStep[]): PercentStep[] {
   const sorted = [...steps].sort((a, b) => b.from - a.from);
   sorted.forEach((step, index) => {
-    if (step.from === sorted[index - 1]?.from)
-      throw new Error(`percentDecimals: ${step.from} is set twice`);
+    const path = "options.percentDecimals";
+    if (step.from === sorted[index - 1]?.from) {
+      fail("options.percentStepDuplicate", path, { from: step.from });
+    }
     if (!(step.from >= 0 && step.from <= 100)) {
-      throw new Error(`percentDecimals: from ${step.from} is not within 0 to 100`);
+      fail("options.percentStepOutOfRange", path, { from: step.from });
     }
     if (
       !Number.isInteger(step.decimals) ||
       step.decimals < 0 ||
       step.decimals > MAX_PERCENT_DECIMALS
     ) {
-      throw new Error(
-        `percentDecimals: decimals ${step.decimals} is not a whole number from 0 to 3`,
-      );
+      fail("options.percentDecimalsOutOfRange", path, { decimals: step.decimals });
     }
   });
   const lowest = sorted.at(-1);
@@ -51,7 +52,7 @@ export function resolveOptions(options: Partial<DeclarationOptions> = {}): Decla
   const resolved = { ...defaults, ...options };
   // Allergens must stand out (1169/2011 Art. 21(1)(b)); plain text has no bold.
   if (resolved.format === "text" && resolved.highlight === "bold") {
-    throw new Error('highlight "bold" needs format "markdown" or "html"');
+    fail("options.boldNeedsMarkup", "options.highlight");
   }
   return { ...resolved, percentDecimals: resolveSteps(resolved.percentDecimals) };
 }

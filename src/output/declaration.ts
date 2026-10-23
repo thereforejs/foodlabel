@@ -1,6 +1,7 @@
 import { type Decimal, decimal, divide, multiply, sum } from "@thereforejs/decy";
 import { createIngredientsList } from "../core/ingredients.ts";
 import { resolveOptions } from "../core/options.ts";
+import { fail } from "../diagnostics/fail.ts";
 import type { DeclarationOptions, Ingredient, ResolvedIngredient } from "../types/index.ts";
 import { allergenWords } from "./allergen-words.ts";
 import { createMarkup, type Markup } from "./markup.ts";
@@ -30,13 +31,7 @@ export function createDeclaration(
       scale: 20,
       mode: resolved.rounding,
     });
-    try {
-      return markup.plain(formatPercent(percent, resolved));
-    } catch (cause) {
-      throw new Error(`"${item.name}": ${cause instanceof Error ? cause.message : String(cause)}`, {
-        cause,
-      });
-    }
+    return markup.plain(formatPercent(percent, resolved, item));
   }
 
   function name(item: ResolvedIngredient): { text: string; tail: string } {
@@ -44,9 +39,7 @@ export function createDeclaration(
       return { text: markup.plain(item.name), tail: ` (${list(item.children, item.weight)})` };
     }
     if (item.unknown.length > 0) {
-      throw new Error(
-        `"${item.name}": unknown words ${item.unknown.join(", ")}, never treated as safe`,
-      );
+      fail("ingredient.unknown", item.path, { name: item.name, words: item.unknown.join(", ") });
     }
     const eNumber = resolved.additives === "eNumber" ? item.eNumber : undefined;
     const words = allergenWords(item, eNumber !== undefined);

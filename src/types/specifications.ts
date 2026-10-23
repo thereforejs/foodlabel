@@ -43,6 +43,8 @@ export interface Ingredient {
 // An ingredient after resolving: weight in grams, same names merged per level.
 export interface ResolvedIngredient {
   name: string;
+  /** Where it comes from in the input, e.g. "[2].children[0]"; the first one when merged. */
+  path: string;
   weight: Decimal;
   /** For a group: the allergens of all its parts. */
   allergens: AllergenId[];

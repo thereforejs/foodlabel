@@ -5,8 +5,9 @@ import { formatPercent } from "../src/output/percent.ts";
 import { resolveOptions } from "../src/core/options.ts";
 import type { DeclarationOptions } from "../src/types/index.ts";
 
+const ingredient = { name: "Zutat", path: "[0]" };
 const pct = (value: string, options: Partial<DeclarationOptions> = {}) =>
-  formatPercent(decimal(value), resolveOptions(options));
+  formatPercent(decimal(value), resolveOptions(options), ingredient);
 
 describe("default steps (Globus practice: two significant digits)", () => {
   test.each([
@@ -117,7 +118,7 @@ describe("properties", () => {
   test("every share from 0.001 to 100 % prints, never as 0", () => {
     fc.assert(
       fc.property(share, (value) => {
-        expect(formatPercent(value, resolveOptions())).not.toMatch(/^0(,0*)? %$/);
+        expect(formatPercent(value, resolveOptions(), ingredient)).not.toMatch(/^0(,0*)? %$/);
       }),
     );
   });
@@ -125,7 +126,9 @@ describe("properties", () => {
   test("floor never shows more than the real share", () => {
     fc.assert(
       fc.property(share, (value) => {
-        const shown = formatPercent(value, resolveOptions()).replace(" %", "").replace(",", ".");
+        const shown = formatPercent(value, resolveOptions(), ingredient)
+          .replace(" %", "")
+          .replace(",", ".");
         expect(compare(decimal(shown), value)).toBeLessThanOrEqual(0);
       }),
     );
