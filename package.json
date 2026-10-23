@@ -40,6 +40,9 @@
     "prepublishOnly": "vp run build",
     "prepare": "vp config"
   },
+  "dependencies": {
+    "@jasy/decy": "^0.1.0"
+  },
   "devDependencies": {
     "@types/node": "^26.6.5",
     "bumpp": "^12.3.0",
