@@ -11,7 +11,8 @@ unsure, it says so.** Open points are listed at the end, never guessed.
 
 ## 1. What it is, and what it is not
 
-**It is** a library that takes a recipe tree with exact amounts and returns:
+**It is** a library that takes a recipe tree with exact amounts (materials given as structured
+specifications, as supplier ingredient texts, or both, section 3.5) and returns:
 
 1. the **ingredient list** (Zutatenverzeichnis) in the legally correct order and wording, compound
    ingredients in brackets or resolved, allergens highlighted;
@@ -27,7 +28,9 @@ confirm it before it reaches the library.
 
 **It is not:**
 
-- an estimator, a recognizer of ingredient text, or anything with machine learning;
+- an estimator, a guesser, or anything with machine learning. Ingredient text is split by fixed
+  syntax rules and every term is matched whole against the curated vocabulary; an unknown term is
+  refused, never assumed harmless (3.5);
 - a label layout, a printer or a PDF writer;
 - a database, a store or a network client (data ships inside the package as versioned JSON);
 - a judge. It applies the rules it knows, names their source, and when a case is unclear it declares
@@ -43,6 +46,10 @@ confirm it before it reaches the library.
   rounding rule carries a citation (regulation, article or annex, number). A rule without a source
   does not exist.
 - **In doubt, declare** (section 4.9). A missing allergen can kill; a superfluous one cannot.
+- **The library protects itself.** In Germany no authority answers labelling questions in advance;
+  most open points stay open. Where the law leaves room, the library takes the side that cannot hide
+  information (declare, list separately, refuse) and says so with `rule.unclear`. It never waits for
+  an answer and never picks the convenient reading.
 - **Jurisdiction is a parameter.** Only `EU-DE` (EU law plus German national rules) is built now, but
   nothing is hard wired so that Austria or Switzerland can follow (the Swiss 2 % rule for compound
   ingredients is broader than the EU one and must not leak in).
@@ -131,8 +138,12 @@ interface AdditiveRef {
   material from the supplier; whether the exemption applies in a recipe is decided by the library.
 - `sulphite` absent: the supplier declares none. `"unknown"`: sulphite is in it, the amount is not
   known (4.6).
-- `function` must be one of the classes the additive may be declared under (5.1), otherwise error
-  `additive.functionNotAllowed`. Citric acid is an acid in one food and an antioxidant in another.
+- `function` must be one of the class names of Annex VII Part C LMIV, otherwise error
+  `additive.functionNotAllowed`. No law lists the allowed classes per substance (the EU additives
+  database has no such field either), so the class comes from the supplier: citric acid is an acid in
+  one food and an antioxidant in another. Only colours and sweeteners are fixed by law (their own
+  tables in Annex II Part B of Regulation (EC) No 1333/2008); a colour declared as anything but
+  "Farbstoff", or a sweetener as anything but "Süßungsmittel", is the same error.
 
 ### 3.4 Options
 
@@ -145,10 +156,42 @@ interface DeclarationOptions {
   quid: { ingredient: IngredientId | "class:..." }[]; // what QUID is asked for
   guideline?: GuidelineId; // 4.10, the category the name claims ("roggenmischbrot")
   pieceKg?: Decimal; // 6.5, weight of one piece as sold
+  additives: "name" | "eNumber"; // "Emulgator: Sojalecithin" or "Emulgator: E 322 (SOJA)"
 }
 ```
 
 - `guideline` is a curated identifier, never read from a product name (no substring search, section 2).
+- `additives: "eNumber"`: an additive from an allergen source keeps the allergen visible after the
+  number, "E 322 (SOJA)" (Art. 21). Classes without a specific name (modified starch) are unaffected.
+
+### 3.5 Text input
+
+A material may be given as the supplier's ingredient text instead of a structured specification:
+
+```ts
+| { kind: "text"; text: string } // "Weizenmehl, Backmittel 2 % (WEIZENMEHL, Malz 5 %, ...), Salz"
+```
+
+The library turns it into a `MaterialSpec` in two steps; everything after that is the same path as
+structured input (one model, one set of rules):
+
+1. **split**: syntax only, no vocabulary. Brackets of any depth (round and square), a leading
+   "Zutaten:", a closing full stop; percentages in every position ("10 % Mehl", "Mehl 10 %",
+   "Haselnüsse (13 %)": a bracket holding only a percentage is a share, not a sub-list); the decimal
+   comma is not a list comma ("Malz 10,5 %"); **never split on "und"** ("Mono- und Diglyceride");
+   classes as "Emulgator: E 471" and "Emulgatoren (E 471, E 472e)"; highlighting ("MILCH",
+   "**Milch**") is emphasis, not meaning; precautionary statements ("Kann Spuren von ... enthalten")
+   are cut off and returned apart (out of scope, open question 8). Text it cannot parse is error
+   `text.syntax` with the position.
+2. **resolve**: every term is matched **whole** against the vocabulary (section 7) after normalising
+   case, ß/ss, hyphens, spaces and Typ/Type. Never a substring, never fuzzy matching. Where the reach
+   of a class list is ambiguous ("Emulgatoren: E 471, E 472e, Wasser") the vocabulary decides, and if
+   it cannot, the text is refused. An unknown term is error `ingredient.unknown` with its path; the
+   application maps it (or adds a synonym) and asks again.
+
+Shares: what the text gives is used; what it does not give is missing, and a missing share is refused
+like in structured input (`share.missing`, `share.sumNot100`). The library never fills a gap. Mixed
+input is normal: a recipe line can be a structured material whose parts are texts, and the reverse.
 
 ---
 
@@ -238,6 +281,15 @@ order by weight; `smallIngredientsAnyOrder` only allows a stable alternative (e.
 - **Class names** for additives (Annex VII Part C): the class name followed by the specific name or the
   E number: "Emulgator: Sojalecithin" / "Säuerungsmittel: Citronensäure". The class is the function in
   the food, not a property of the substance.
+- **One additive, several classes: listed once per class, never added across classes.** An additive is
+  identified by **substance and class** together. Calcium phosphates as raising agent (from the baking
+  powder) and as acidity regulator (from a filling) are two entries, each with its own weight and its
+  own place in the order: "Backtriebmittel: Calciumphosphate, ..., Säureregulator: Calciumphosphate".
+  Only equal substance **and** equal class merge (resolved mode, 4.3). Each entry carries exactly one
+  class, the principal function of that use (Annex VII Part C: "Gehört eine Zutat zu mehreren Klassen,
+  so ist die Klasse anzugeben, der die Zutat aufgrund ihrer hauptsächlichen Wirkung für das betreffende
+  Lebensmittel zuzuordnen ist"). Practice: 175 of 1,538 real bakery declarations do exactly this.
+  Open question 15.
 - **Refined oils and fats**: "pflanzliche Öle (Raps, Sonnenblume)", "ganz gehärtet" or "teilweise
   gehärtet" where applicable (Annex VII Part A Nos 8 and 9).
 
@@ -315,9 +367,11 @@ und Kleingebäck (last amended 2026-01-22), Leitsätze für Feine Backwaren (202
 
 ### 5.1 Additives
 
-Regulation (EC) No 1333/2008. Every additive the library knows has: E number, German name, the
-functional classes it may be declared under (Annex VII Part C LMIV), and whether it is an allergen
-source (E 322 lecithin from soy, from egg, ...). The function is given by the specification
+Regulation (EC) No 1333/2008. Every additive the library knows has: E number (with group members and
+sub-numbers such as E 472a to f), German name and synonyms, its table in Annex II Part B (colour,
+sweetener, other), and whether it is or may be an allergen source (E 322 lecithin from soy, from
+egg, ...). Sources: Annex II Part B in the German consolidated version (EUR-Lex) for numbers and
+names, the EU food additives database (CC BY 4.0) for groups and the authorisations of category 7. The function is given by the specification
 (`AdditiveRef.function`), not guessed from the E number.
 
 The data also carries the **mandatory notes** an additive triggers, with their source:
@@ -439,7 +493,8 @@ A single `ATTRIBUTION.md` lists every source with its license.
   result (no half output); warnings come with it. Stable codes, e.g. `share.missing`,
   `share.sumNot100`, `allergen.undeclared`, `bakingLoss.exceedsWater`, `bakingLoss.withoutWater`,
   `nutrition.valuesMissing`, `nutrition.massBalance`, `rule.unclear`, `guideline.*`, `cycle`,
-  `exemption.notApplicable`, `additive.functionNotAllowed`, `sulphite.amountUnknown`.
+  `exemption.notApplicable`, `additive.functionNotAllowed`, `sulphite.amountUnknown`, `text.syntax`,
+  `ingredient.unknown`.
 - **Mandatory notes** (5.1) as a list, each with its source.
 - Cycles in the input (a recipe containing itself through any path) are error `cycle`, never a hang.
 
@@ -493,6 +548,7 @@ practice, already folded into this document).
 - Highlighting bold or uppercase, the baker's choice.
 - CC BY sources are fine with attribution; no lawyer needed for that.
 - License MIT.
+- An additive with different functions is listed once per class, never summed across classes (4.5).
 
 ## 11. Repository
 
@@ -527,3 +583,7 @@ practice, already folded into this document).
 14. `nameOnly` with allergens and additives inside (chocolate under 2 % with soy lecithin and milk):
     the exact text, e.g. "Schokolade (Emulgator: SOJALECITHIN, MILCH)"? Until settled: additives first,
     then the allergen groups not already named by them.
+15. One additive under two classes in one food (4.5): the practice lists it per use. Annex VII Part C
+    speaks of "the" principal function "for the food in question", which could be read as one class
+    per food. No official guidance found (searched 2026-10-22). A food chemist should confirm the
+    practice; until then the decision in section 10 holds.
