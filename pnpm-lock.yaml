@@ -166,9 +166,9 @@ importers:
 
   .:
     dependencies:
-      '@jasy/decy':
-        specifier: ^0.1.0
-        version: 0.1.0
+      '@thereforejs/decy':
+        specifier: ^0.1.1
+        version: 0.1.1
     devDependencies:
       '@types/node':
         specifier: ^26.6.5
@@ -202,10 +202,6 @@ packages:
 
   '@blazediff/core@1.10.0':
     resolution: {integrity: sha512-AOQff0zgR7cGsZL+4E7hVkmujoPUpm0J9xzWGWZj5wCjd3gmxESXAPfKyuzs93VdpQNFhHlBhfOjrcZ+XTERtQ==}
-
-  '@jasy/decy@0.1.0':
-    resolution: {integrity: sha512-7/fVrm6nUnRfq9z5oNeyKc8h3wzR4ulSX/rU+fzgLSBc3eZG7QSWIjCsljho0LtT111nFP7He9BZRNS7/kjEgA==}
-    engines: {node: '>=22'}
 
   '@jridgewell/resolve-uri@3.1.2':
     resolution: {integrity: sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==}
@@ -517,6 +513,10 @@ packages:
     engines: {node: '>=12', npm: '>=6'}
     peerDependencies:
       '@testing-library/dom': '>=7.21.4'
+
+  '@thereforejs/decy@0.1.1':
+    resolution: {integrity: sha512-fQRrFCT4y7CC27jgdvzpHfC0TJ80lEi+F3dZk1XyNEuc9/yzsq9nW22GFkFTtO3+9KKsWqN6xvzVewkDyMm9og==}
+    engines: {node: '>=22'}
 
   '@types/aria-query@5.0.4':
     resolution: {integrity: sha512-rfT93uj5s0PRL7EzccGMs3brplhcrghnDoV26NqKhCAS1hVo+WdNsPvE/yb6ilfr5hi2MEk6d5EWJTKdxg8jVw==}
@@ -1288,8 +1288,6 @@ snapshots:
 
   '@blazediff/core@1.10.0': {}
 
-  '@jasy/decy@0.1.0': {}
-
   '@jridgewell/resolve-uri@3.1.2': {}
 
   '@jridgewell/sourcemap-codec@1.6.0': {}
@@ -1457,6 +1455,8 @@ snapshots:
   '@testing-library/user-event@14.6.8(@testing-library/dom@10.4.2)':
     dependencies:
       '@testing-library/dom': 10.4.2
+
+  '@thereforejs/decy@0.1.1': {}
 
   '@types/aria-query@5.0.4': {}
 

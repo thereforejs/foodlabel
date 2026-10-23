@@ -1,5 +1,5 @@
 {
-  "name": "lmiv",
+  "name": "@thereforejs/lmiv",
   "version": "0.0.0",
   "description": "Food declaration and nutrition from recipes under the EU food information regulation (LMIV, Regulation (EU) No 1169/2011)",
   "keywords": [
@@ -11,15 +11,15 @@
     "nutrition",
     "quid"
   ],
-  "homepage": "https://github.com/Flo0806/lmiv#readme",
+  "homepage": "https://github.com/thereforejs/lmiv#readme",
   "bugs": {
-    "url": "https://github.com/Flo0806/lmiv/issues"
+    "url": "https://github.com/thereforejs/lmiv/issues"
   },
   "license": "MIT",
   "author": "Florian Heuberger",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Flo0806/lmiv.git"
+    "url": "git+https://github.com/thereforejs/lmiv.git"
   },
   "files": [
     "dist"
@@ -30,18 +30,19 @@
     "./package.json": "./package.json"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "scripts": {
     "build": "vp pack",
     "dev": "vp pack --watch",
     "test": "vp test",
     "check": "vp check",
-    "prepublishOnly": "vp run build",
+    "prepack": "vp check && vp test run && vp pack",
     "prepare": "vp config"
   },
   "dependencies": {
-    "@jasy/decy": "^0.1.0"
+    "@thereforejs/decy": "^0.1.1"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",

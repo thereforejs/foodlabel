@@ -1,4 +1,4 @@
-import { toDecimalString } from "@jasy/decy";
+import { toDecimalString } from "@thereforejs/decy";
 import { describe, expect, test } from "vite-plus/test";
 import de from "../src/additives/de.json" with { type: "json" };
 import { ADDITIVE_CLASS_IDS } from "../src/additives/classes.ts";

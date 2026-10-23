@@ -7,7 +7,7 @@ import {
   percentageOf,
   sum,
   toDecimalString,
-} from "@jasy/decy";
+} from "@thereforejs/decy";
 import additivesDe from "../additives/de.json" with { type: "json" };
 import allergensDe from "../allergens/de.json" with { type: "json" };
 import { ALLERGEN_IDS } from "../allergens/ids.ts";

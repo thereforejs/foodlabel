@@ -1,4 +1,4 @@
-import { decimal, equals, toDecimalString } from "@jasy/decy";
+import { decimal, equals, toDecimalString } from "@thereforejs/decy";
 import { describe, expect, test } from "vite-plus/test";
 import { createIngredientsList } from "../src/core/ingredients.ts";
 import type { Ingredient, ResolvedIngredient } from "../src/types/index.ts";
