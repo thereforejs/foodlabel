@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vite-plus/test";
-import * as lmiv from "../src/index.ts";
+import * as foodlabel from "../src/index.ts";
 import { createDeclaration, createIngredientsList, type Ingredient } from "../src/index.ts";
 
 const bread: Ingredient[] = [
@@ -17,7 +17,7 @@ const bread: Ingredient[] = [
 
 describe("public api", () => {
   test("only what callers need is exported", () => {
-    expect(Object.keys(lmiv).sort()).toEqual([
+    expect(Object.keys(foodlabel).sort()).toEqual([
       "DiagnosticError",
       "createDeclaration",
       "createIngredientsList",

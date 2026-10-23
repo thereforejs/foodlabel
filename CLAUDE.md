@@ -1,4 +1,4 @@
-# lmiv
+# foodlabel
 
 Food declaration and nutrition from recipes under EU Regulation 1169/2011 (LMIV) and its German
 companions: ingredient list, allergens, QUID, nutrition per 100 g, diagnostics. Pure TypeScript
