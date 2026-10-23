@@ -21,7 +21,9 @@ export function allergenWords(item: ResolvedIngredient, all: boolean): string[] 
       // Annex II requires the kind: "Malz" alone can be barley or wheat (2017/C 428/01 No 8, 13).
       if (adds === null) {
         if (own.length === 0) {
-          throw new Error(`"${item.name}" does not say which ${vocabulary.allergens[id].label}`);
+          throw new Error(
+            `"${item.name}" contains ${vocabulary.allergens[id].label} but does not say which kind, use a more specific name`,
+          );
         }
         continue;
       }
