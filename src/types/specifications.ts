@@ -15,13 +15,18 @@ export interface Ingredient {
   eNumberCategory?: string;
   quantity: number;
   unit: "weight" | "percent";
+  /** Keep this ingredient as one entry with its parts in brackets. Only has an effect with children. */
+  group?: boolean;
   children?: Ingredient[];
 }
 
-// A leaf of the recipe after resolving: weight in grams, same names merged.
+// An ingredient after resolving: weight in grams, same names merged per level.
 export interface ResolvedIngredient {
   name: string;
   weight: Decimal;
+  /** For a group: the allergens of all its parts. */
   allergens: AllergenId[];
   unknown: string[];
+  /** Only set for a group. */
+  children?: ResolvedIngredient[];
 }

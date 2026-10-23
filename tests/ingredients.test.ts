@@ -1,7 +1,7 @@
 import { decimal, equals, toDecimalString } from "@jasy/decy";
 import { describe, expect, test } from "vite-plus/test";
 import { createIngredientsList } from "../src/core/ingredients.ts";
-import type { Ingredient } from "../src/types/index.ts";
+import type { Ingredient, ResolvedIngredient } from "../src/types/index.ts";
 
 const recipe: Ingredient[] = [
   { name: "Roggenmehl", quantity: 5000, unit: "weight" },
@@ -111,5 +111,108 @@ describe("createIngredientsList", () => {
     expect(() => createIngredientsList([{ name: "Salz", quantity: 2, unit: "percent" }])).toThrow(
       "[0]",
     );
+  });
+});
+
+const sourdough = (group: boolean, quantity = 1000): Ingredient => ({
+  name: "Sauerteig",
+  quantity,
+  unit: "weight",
+  group,
+  children: [
+    { name: "Roggenmehl", quantity: 50, unit: "percent" },
+    { name: "Wasser", quantity: 50, unit: "percent" },
+  ],
+});
+
+type Tree = [string, string, Tree[]?];
+const tree = (items: ResolvedIngredient[]): Tree[] =>
+  items.map((item) =>
+    item.children
+      ? [item.name, toDecimalString(item.weight), tree(item.children)]
+      : [item.name, toDecimalString(item.weight)],
+  );
+
+describe("grouping", () => {
+  test("a group stays one entry and is not merged with the outside", () => {
+    const result = createIngredientsList([
+      { name: "Roggenmehl", quantity: 5000, unit: "weight" },
+      sourdough(true),
+      { name: "Wasser", quantity: 5300, unit: "weight" },
+    ]);
+    expect(tree(result)).toEqual([
+      ["Wasser", "5300"],
+      ["Roggenmehl", "5000"],
+      [
+        "Sauerteig",
+        "1000",
+        [
+          ["Roggenmehl", "500.00"],
+          ["Wasser", "500.00"],
+        ],
+      ],
+    ]);
+    expect(result[2]?.allergens).toEqual(["gluten"]);
+  });
+
+  test("groups of the same name stay apart", () => {
+    expect(
+      createIngredientsList([sourdough(true), sourdough(true, 500)]).map((item) => item.name),
+    ).toEqual(["Sauerteig", "Sauerteig"]);
+  });
+
+  test("the product itself is never its own bracket", () => {
+    expect(tree(createIngredientsList([sourdough(true)]))).toEqual([
+      ["Roggenmehl", "500.00"],
+      ["Wasser", "500.00"],
+    ]);
+  });
+
+  test("groups nest", () => {
+    const result = createIngredientsList([
+      { name: "Salz", quantity: 100, unit: "weight" },
+      {
+        name: "Backmittel",
+        quantity: 2000,
+        unit: "weight",
+        group: true,
+        children: [{ ...sourdough(true, 100), unit: "percent" }],
+      },
+    ]);
+    expect(tree(result)).toEqual([
+      [
+        "Backmittel",
+        "2000",
+        [
+          [
+            "Sauerteig",
+            "2000.00",
+            [
+              ["Roggenmehl", "1000.0000"],
+              ["Wasser", "1000.0000"],
+            ],
+          ],
+        ],
+      ],
+      ["Salz", "100"],
+    ]);
+  });
+
+  test("a group carries the allergens and unknown names of its parts", () => {
+    const [, group] = createIngredientsList([
+      { name: "Salz", quantity: 100, unit: "weight" },
+      {
+        name: "Mischung",
+        quantity: 50,
+        unit: "weight",
+        group: true,
+        children: [
+          { name: "Sesam", quantity: 20, unit: "weight" },
+          { name: "Weizenmehl", quantity: 20, unit: "weight" },
+          { name: "Lecithin", quantity: 10, unit: "weight" },
+        ],
+      },
+    ]);
+    expect(group).toMatchObject({ allergens: ["gluten", "sesame"], unknown: ["lecithin"] });
   });
 });
