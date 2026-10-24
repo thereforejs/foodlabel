@@ -35,8 +35,10 @@ export interface Ingredient {
   unit: "weight" | "percent";
   /** Keep this ingredient as one entry with its parts in brackets. Only has an effect with children. */
   group?: boolean;
-  /** Show the percentage. Overrides what is detected from the product name. */
+  /** Show the percentage. */
   quid?: boolean;
+  /** Sulphur dioxide in this raw material in mg/kg, from its specification. */
+  sulphite?: number;
   children?: Ingredient[];
 }
 
@@ -52,6 +54,8 @@ export interface ResolvedIngredient {
   /** Where the allergens sit in `name`. Empty for a group, whose name is no ingredient. */
   pieces: AllergenPiece[];
   quid?: boolean;
+  /** Sulphur dioxide it brings, in mg; for a group the sum of its parts. */
+  sulphiteMg?: Decimal;
   /** Only set for a group. A class entry like "Emulgatoren" is a group with `additiveClass`. */
   children?: ResolvedIngredient[];
   /** Set on an additive and on its class entry. */

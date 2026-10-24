@@ -13,6 +13,15 @@ export function allergenWords(item: ResolvedIngredient, all: boolean): string[] 
   const words = new Set<string>();
   for (const id of item.allergens) {
     const pieces = item.pieces.filter((piece) => piece.allergen === id);
+    // Not from the name at all (sulphite from its amount): name it in brackets.
+    if (pieces.length === 0) {
+      const short = vocabulary.allergens[id].short;
+      if (short === undefined) {
+        fail("allergen.sourceMissing", item.path, { name: item.name, allergen: id });
+      }
+      words.add(short);
+      continue;
+    }
     const own = pieces
       .filter((piece) => piece.adds === undefined)
       .map((piece) => item.name.slice(piece.start, piece.end));
