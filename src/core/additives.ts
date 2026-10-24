@@ -9,8 +9,8 @@ export interface AdditiveIdentity {
 }
 
 export function toENumber(text: string): string | undefined {
-  const match = /^e\s*(\d{3,4}[a-z]?)$/.exec(normalizeTerm(text));
-  return match ? `E ${match[1]}` : undefined;
+  const match = /^e\s*(\d{3,4}[a-z]?)\s*(\([ivx]+\))?$/.exec(normalizeTerm(text));
+  return match ? `E ${match[1]}${match[2] ?? ""}` : undefined;
 }
 
 export function createAdditiveCatalog(vocabulary: AdditiveVocabulary) {
@@ -35,9 +35,11 @@ export function createAdditiveCatalog(vocabulary: AdditiveVocabulary) {
       const eNumber = ingredient.eNumber
         ? toENumber(ingredient.eNumber)
         : byName.get(normalizeTerm(ingredient.name));
-      if (!eNumber || !(eNumber in vocabulary.additives)) {
+      const entry = eNumber === undefined ? undefined : vocabulary.additives[eNumber];
+      if (!eNumber || !entry) {
         fail("additive.unknown", path, { name: ingredient.eNumber ?? ingredient.name });
       }
+      if (entry.notAuthorized) fail("additive.notAuthorized", path, { name: entry.name, eNumber });
       return { eNumber, additiveClass };
     },
 

@@ -8,5 +8,5 @@ export interface AdditiveVocabulary {
   source: string;
   classes: Record<AdditiveClassId, { singular: string; plural: string }>;
   /** Keyed by E number as written in Annex II, e.g. "E 472e". */
-  additives: Record<string, { name: string; synonyms: string[] }>;
+  additives: Record<string, { name: string; synonyms: string[]; notAuthorized?: boolean }>;
 }

@@ -47,8 +47,8 @@ describe("errors refuse the result with a stable code and the path into the inpu
     ],
     [
       "unknown additive",
-      [g("Irgendwas", 1, { eNumberCategory: "Emulgator", eNumber: "E 999" })],
-      { code: "additive.unknown", path: "[0]", params: { name: "E 999" } },
+      [g("Irgendwas", 1, { eNumberCategory: "Emulgator", eNumber: "E 1234" })],
+      { code: "additive.unknown", path: "[0]", params: { name: "E 1234" } },
     ],
     [
       "unknown word",

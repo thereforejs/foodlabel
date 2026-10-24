@@ -37,6 +37,10 @@ export const DIAGNOSTICS = {
     source: "Regulation (EU) No 1169/2011, Annex VII, Part C",
     message: (p) => `"${p.class}" is no additive class`,
   },
+  "additive.notAuthorized": {
+    source: "Regulation (EC) No 1333/2008, Annex II Part B",
+    message: (p) => `"${p.name}" (${p.eNumber}) is listed but authorised in no food`,
+  },
   "additive.unknown": {
     message: (p) => `"${p.name}" is no known additive`,
   },

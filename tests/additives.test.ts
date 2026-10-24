@@ -3,6 +3,7 @@ import { describe, expect, test } from "vite-plus/test";
 import de from "../src/additives/de.json" with { type: "json" };
 import { ADDITIVE_CLASS_IDS } from "../src/additives/classes.ts";
 import { normalizeTerm } from "../src/core/allergens.ts";
+import { toENumber } from "../src/core/additives.ts";
 import { createIngredientsList } from "../src/core/ingredients.ts";
 import type { Ingredient, ResolvedIngredient } from "../src/types/index.ts";
 
@@ -37,7 +38,8 @@ describe("vocabulary de", () => {
   });
 
   test("E numbers are written as in Annex II", () => {
-    for (const eNumber of Object.keys(de.additives)) expect(eNumber).toMatch(/^E \d{3,4}[a-z]?$/);
+    for (const eNumber of Object.keys(de.additives))
+      expect(eNumber).toMatch(/^E \d{3,4}[a-z]?(\([ivx]+\))?$/);
   });
 });
 
@@ -142,7 +144,7 @@ describe("additives", () => {
   });
 
   test("an unknown E number is refused", () => {
-    expect(() => createIngredientsList([additive("Irgendwas", 1, "Emulgator", "E 999")])).toThrow(
+    expect(() => createIngredientsList([additive("Irgendwas", 1, "Emulgator", "E 1234")])).toThrow(
       "[0]",
     );
   });
@@ -151,5 +153,40 @@ describe("additives", () => {
     expect(() =>
       createIngredientsList([additive("Ascorbinsaeure", 1, "Antioxidationsmittel")]),
     ).toThrow("[0]");
+  });
+});
+
+describe("authorisation", () => {
+  test.each([
+    ["by number", additive("Titandioxid", 1, "Farbstoff", "E 171")],
+    ["by name", additive("Titandioxid", 1, "Farbstoff")],
+  ])("an additive listed but authorised in no food is refused %s", (_, ingredient) => {
+    expect(() => createIngredientsList([ingredient])).toThrow(
+      expect.objectContaining({
+        diagnostics: [
+          expect.objectContaining({
+            code: "additive.notAuthorized",
+            path: "[0]",
+            params: { name: "Titandioxid", eNumber: "E 171" },
+          }),
+        ],
+      }),
+    );
+  });
+});
+
+describe("toENumber", () => {
+  test.each([
+    ["e300", "E 300"],
+    ["E 472e", "E 472e"],
+    ["e160b(i)", "E 160b(i)"],
+    ["E 160b (ii)", "E 160b(ii)"],
+  ])("%s -> %s", (text, eNumber) => {
+    expect(toENumber(text)).toBe(eNumber);
+  });
+
+  test("a sub-numbered additive is found by its number", () => {
+    const [entry] = createIngredientsList([additive("Annatto", 1, "Farbstoff", "e160b(i)")]);
+    expect(entry?.children?.[0]?.eNumber).toBe("E 160b(i)");
   });
 });
