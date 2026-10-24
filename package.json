@@ -1,6 +1,6 @@
 {
   "name": "@thereforejs/foodlabel",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Food declaration and nutrition from recipes under the EU food information regulation (Regulation (EU) No 1169/2011, known as FIC, LMIV or INCO)",
   "keywords": [
     "1169-2011",
