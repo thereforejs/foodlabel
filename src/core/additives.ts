@@ -18,6 +18,8 @@ export function createAdditiveCatalog(vocabulary: AdditiveVocabulary) {
   for (const id of ADDITIVE_CLASS_IDS) {
     classes.set(normalizeTerm(vocabulary.classes[id].singular), id);
     classes.set(normalizeTerm(vocabulary.classes[id].plural), id);
+    for (const spelling of vocabulary.classes[id].accepted ?? [])
+      classes.set(normalizeTerm(spelling), id);
   }
   const byName = new Map<string, string>();
   for (const [eNumber, entry] of Object.entries(vocabulary.additives)) {

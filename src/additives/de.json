@@ -1,6 +1,6 @@
 {
   "language": "de",
-  "source": "Regulation (EC) No 1333/2008, Annex II Part B, consolidated 2026-08-18; Regulation (EU) No 1169/2011, Annex VII, Part C",
+  "source": "Regulation (EC) No 1333/2008, Annex I (class plurals) and Annex II Part B, consolidated 2026-08-18; Regulation (EU) No 1169/2011, Annex VII, Part C",
   "classes": {
     "acid": {
       "singular": "Säuerungsmittel",
@@ -60,7 +60,8 @@
     },
     "glazingAgent": {
       "singular": "Überzugsmittel",
-      "plural": "Überzugsmittel"
+      "plural": "Überzugsmittel",
+      "accepted": ["Überzugmittel"]
     },
     "humectant": {
       "singular": "Feuchthaltemittel",

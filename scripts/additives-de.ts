@@ -58,7 +58,7 @@ for (let index = start; index < end; index++) {
   additives[eNumber] = { name, synonyms, ...(notAuthorized && { notAuthorized: true }) };
 }
 
-vocabulary.source = `Regulation (EC) No 1333/2008, Annex II Part B, consolidated ${version}; Regulation (EU) No 1169/2011, Annex VII, Part C`;
+vocabulary.source = `Regulation (EC) No 1333/2008, Annex I (class plurals) and Annex II Part B, consolidated ${version}; Regulation (EU) No 1169/2011, Annex VII, Part C`;
 vocabulary.additives = additives;
 writeFileSync(target, `${JSON.stringify(vocabulary, null, 2)}\n`);
 console.log(`${Object.keys(additives).length} additives written`);

@@ -190,3 +190,12 @@ describe("toENumber", () => {
     expect(entry?.children?.[0]?.eNumber).toBe("E 160b(i)");
   });
 });
+
+describe("class spellings", () => {
+  // Annex I of 1333/2008 writes "Überzugmittel", LMIV Annex VII Part C "Überzugsmittel".
+  // Most likely a typo in 1333/2008; accepted on input, printed the LMIV way. Watch for a correction.
+  test("Überzugmittel is accepted and printed as Überzugsmittel", () => {
+    const [entry] = createIngredientsList([additive("Bienenwachs", 1, "Überzugmittel", "E 901")]);
+    expect(entry?.name).toBe("Überzugsmittel");
+  });
+});
