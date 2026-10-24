@@ -30,6 +30,7 @@ function normalizeWithOrigin(name: string) {
 interface Entry {
   allergens: AllergenId[];
   adds?: string | null;
+  kind?: string;
 }
 
 export function createAllergenDetector(vocabulary: AllergenVocabulary) {
@@ -37,7 +38,10 @@ export function createAllergenDetector(vocabulary: AllergenVocabulary) {
   for (const term of vocabulary.neutral) entries.set(normalizeTerm(term), { allergens: [] });
   for (const id of ALLERGEN_IDS) {
     const words = vocabulary.allergens[id];
-    for (const term of words.terms) entries.set(normalizeTerm(term), { allergens: [id] });
+    for (const term of words.terms) {
+      const kind = normalizeTerm(words.kinds?.[term] ?? term);
+      entries.set(normalizeTerm(term), { allergens: [id], kind });
+    }
     for (const [term, adds] of Object.entries(words.indirect ?? {})) {
       entries.set(normalizeTerm(term), { allergens: [id], adds });
     }
@@ -82,7 +86,8 @@ export function createAllergenDetector(vocabulary: AllergenVocabulary) {
             start: origin[match.index + start],
             end: origin[match.index + end],
           };
-          pieces.push(entry.adds === undefined ? at : { ...at, adds: entry.adds });
+          if (entry.adds !== undefined) pieces.push({ ...at, adds: entry.adds });
+          else pieces.push({ ...at, kind: entry.kind });
         }
       }
     }

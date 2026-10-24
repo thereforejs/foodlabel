@@ -39,6 +39,8 @@ export interface Ingredient {
   quid?: boolean;
   /** Sulphur dioxide in this raw material in mg/kg, from its specification. */
   sulphite?: number;
+  /** "May contain" words from its specification, e.g. ["Haselnüsse", "Sesam"]. */
+  traces?: string[];
   children?: Ingredient[];
 }
 
@@ -62,4 +64,12 @@ export interface ResolvedIngredient {
   additiveClass?: AdditiveClassId;
   /** Only set on an additive, e.g. "E 471". */
   eNumber?: string;
+}
+
+/** A "may contain" word from the input, with the allergens it names. */
+export interface Trace {
+  name: string;
+  path: string;
+  allergens: AllergenId[];
+  pieces: AllergenPiece[];
 }

@@ -9,6 +9,8 @@ export type AllergenId = (typeof ALLERGEN_IDS)[number];
 export interface AllergenVocabulary {
   language: string;
   source: string;
+  /** Lead-in of the "may contain" statement, followed by a colon and the list. */
+  mayContain: string;
   allergens: Record<AllergenId, AllergenWords>;
   /** Pieces without an allergen, and whole words that must never match one. */
   neutral: string[];
@@ -25,6 +27,8 @@ export interface AllergenWords {
   indirect?: Record<string, string | null>;
   /** Added to an E number, "E 322 (SOJA)". Missing where the allergen has to name its kind. */
   short?: string;
+  /** Terms of the same kind as another term: "Haselnüsse" -> "Haselnuss", "Hartweizen" -> "Weizen". */
+  kinds?: Record<string, string>;
 }
 
 export interface AllergenPiece {
@@ -34,6 +38,8 @@ export interface AllergenPiece {
   end: number;
   /** See `AllergenWords.indirect`; undefined when the piece names the allergen itself. */
   adds?: string | null;
+  /** Normalized kind of a piece that names the allergen itself, e.g. "haselnuss". */
+  kind?: string;
 }
 
 export interface AllergenMatch {

@@ -24,6 +24,12 @@ export const DIAGNOSTICS = {
     message: (p) =>
       `"${p.name}" contains ${p.allergen} but does not say which kind, use a more specific name`,
   },
+  "trace.unknown": {
+    message: (p) => `trace "${p.name}" has unknown words: ${p.words}`,
+  },
+  "trace.noAllergen": {
+    message: (p) => `trace "${p.name}" names no allergen`,
+  },
   "sulphite.invalid": {
     message: (p) => `sulphite ${p.value} is no amount in mg/kg`,
   },
