@@ -1,83 +1,1458 @@
 {
   "language": "de",
-  "source": "Regulation (EC) No 1333/2008, Annex II; Regulation (EU) No 1169/2011, Annex VII, Part C",
+  "source": "Regulation (EC) No 1333/2008, Annex I (class plurals) and Annex II Part B, consolidated 2026-08-18; Regulation (EU) No 1169/2011, Annex VII, Part C",
   "classes": {
-    "acid": { "singular": "Säuerungsmittel", "plural": "Säuerungsmittel" },
-    "acidityRegulator": { "singular": "Säureregulator", "plural": "Säureregulatoren" },
-    "antiCakingAgent": { "singular": "Trennmittel", "plural": "Trennmittel" },
-    "antiFoamingAgent": { "singular": "Schaumverhüter", "plural": "Schaumverhüter" },
-    "antioxidant": { "singular": "Antioxidationsmittel", "plural": "Antioxidationsmittel" },
-    "bulkingAgent": { "singular": "Füllstoff", "plural": "Füllstoffe" },
-    "colour": { "singular": "Farbstoff", "plural": "Farbstoffe" },
-    "emulsifier": { "singular": "Emulgator", "plural": "Emulgatoren" },
-    "emulsifyingSalts": { "singular": "Schmelzsalz", "plural": "Schmelzsalze" },
-    "firmingAgent": { "singular": "Festigungsmittel", "plural": "Festigungsmittel" },
-    "flavourEnhancer": { "singular": "Geschmacksverstärker", "plural": "Geschmacksverstärker" },
+    "acid": {
+      "singular": "Säuerungsmittel",
+      "plural": "Säuerungsmittel"
+    },
+    "acidityRegulator": {
+      "singular": "Säureregulator",
+      "plural": "Säureregulatoren"
+    },
+    "antiCakingAgent": {
+      "singular": "Trennmittel",
+      "plural": "Trennmittel"
+    },
+    "antiFoamingAgent": {
+      "singular": "Schaumverhüter",
+      "plural": "Schaumverhüter"
+    },
+    "antioxidant": {
+      "singular": "Antioxidationsmittel",
+      "plural": "Antioxidationsmittel"
+    },
+    "bulkingAgent": {
+      "singular": "Füllstoff",
+      "plural": "Füllstoffe"
+    },
+    "colour": {
+      "singular": "Farbstoff",
+      "plural": "Farbstoffe"
+    },
+    "emulsifier": {
+      "singular": "Emulgator",
+      "plural": "Emulgatoren"
+    },
+    "emulsifyingSalts": {
+      "singular": "Schmelzsalz",
+      "plural": "Schmelzsalze"
+    },
+    "firmingAgent": {
+      "singular": "Festigungsmittel",
+      "plural": "Festigungsmittel"
+    },
+    "flavourEnhancer": {
+      "singular": "Geschmacksverstärker",
+      "plural": "Geschmacksverstärker"
+    },
     "flourTreatmentAgent": {
       "singular": "Mehlbehandlungsmittel",
       "plural": "Mehlbehandlungsmittel"
     },
-    "foamingAgent": { "singular": "Schaummittel", "plural": "Schaummittel" },
-    "gellingAgent": { "singular": "Geliermittel", "plural": "Geliermittel" },
-    "glazingAgent": { "singular": "Überzugsmittel", "plural": "Überzugsmittel" },
-    "humectant": { "singular": "Feuchthaltemittel", "plural": "Feuchthaltemittel" },
-    "modifiedStarch": { "singular": "Modifizierte Stärke", "plural": "Modifizierte Stärken" },
-    "preservative": { "singular": "Konservierungsstoff", "plural": "Konservierungsstoffe" },
-    "propellantGas": { "singular": "Treibgas", "plural": "Treibgase" },
-    "raisingAgent": { "singular": "Backtriebmittel", "plural": "Backtriebmittel" },
-    "sequestrant": { "singular": "Komplexbildner", "plural": "Komplexbildner" },
-    "stabiliser": { "singular": "Stabilisator", "plural": "Stabilisatoren" },
-    "sweetener": { "singular": "Süßungsmittel", "plural": "Süßungsmittel" },
-    "thickener": { "singular": "Verdickungsmittel", "plural": "Verdickungsmittel" }
+    "foamingAgent": {
+      "singular": "Schaummittel",
+      "plural": "Schaummittel"
+    },
+    "gellingAgent": {
+      "singular": "Geliermittel",
+      "plural": "Geliermittel"
+    },
+    "glazingAgent": {
+      "singular": "Überzugsmittel",
+      "plural": "Überzugsmittel",
+      "accepted": ["Überzugmittel"]
+    },
+    "humectant": {
+      "singular": "Feuchthaltemittel",
+      "plural": "Feuchthaltemittel"
+    },
+    "modifiedStarch": {
+      "singular": "Modifizierte Stärke",
+      "plural": "Modifizierte Stärken"
+    },
+    "preservative": {
+      "singular": "Konservierungsstoff",
+      "plural": "Konservierungsstoffe"
+    },
+    "propellantGas": {
+      "singular": "Treibgas",
+      "plural": "Treibgase"
+    },
+    "raisingAgent": {
+      "singular": "Backtriebmittel",
+      "plural": "Backtriebmittel"
+    },
+    "sequestrant": {
+      "singular": "Komplexbildner",
+      "plural": "Komplexbildner"
+    },
+    "stabiliser": {
+      "singular": "Stabilisator",
+      "plural": "Stabilisatoren"
+    },
+    "sweetener": {
+      "singular": "Süßungsmittel",
+      "plural": "Süßungsmittel"
+    },
+    "thickener": {
+      "singular": "Verdickungsmittel",
+      "plural": "Verdickungsmittel"
+    }
   },
   "additives": {
-    "E 170": { "name": "Calciumcarbonat", "synonyms": [] },
-    "E 200": { "name": "Sorbinsäure", "synonyms": [] },
-    "E 202": { "name": "Kaliumsorbat", "synonyms": [] },
-    "E 260": { "name": "Essigsäure", "synonyms": [] },
-    "E 262": { "name": "Natriumacetate", "synonyms": ["Natriumacetat", "Natriumdiacetat"] },
-    "E 263": { "name": "Calciumacetat", "synonyms": [] },
-    "E 270": { "name": "Milchsäure", "synonyms": [] },
-    "E 280": { "name": "Propionsäure", "synonyms": [] },
-    "E 281": { "name": "Natriumpropionat", "synonyms": [] },
-    "E 282": { "name": "Calciumpropionat", "synonyms": [] },
-    "E 300": { "name": "Ascorbinsäure", "synonyms": [] },
-    "E 301": { "name": "Natriumascorbat", "synonyms": [] },
+    "E 100": {
+      "name": "Kurkumin",
+      "synonyms": []
+    },
+    "E 101": {
+      "name": "Riboflavine",
+      "synonyms": []
+    },
+    "E 102": {
+      "name": "Tartrazin",
+      "synonyms": []
+    },
+    "E 104": {
+      "name": "Chinolingelb",
+      "synonyms": []
+    },
+    "E 110": {
+      "name": "Gelborange S",
+      "synonyms": []
+    },
+    "E 120": {
+      "name": "Echtes Karmin",
+      "synonyms": []
+    },
+    "E 122": {
+      "name": "Azorubin (Carmoisin)",
+      "synonyms": []
+    },
+    "E 123": {
+      "name": "Amaranth",
+      "synonyms": []
+    },
+    "E 124": {
+      "name": "Cochenillerot A (Ponceau 4R)",
+      "synonyms": []
+    },
+    "E 127": {
+      "name": "Erythrosin",
+      "synonyms": []
+    },
+    "E 129": {
+      "name": "Allurarot AC",
+      "synonyms": []
+    },
+    "E 131": {
+      "name": "Patentblau V",
+      "synonyms": []
+    },
+    "E 132": {
+      "name": "Indigotin (Indigokarmin)",
+      "synonyms": []
+    },
+    "E 133": {
+      "name": "Brillantblau FCF",
+      "synonyms": []
+    },
+    "E 140": {
+      "name": "Chlorophylle und Chlorophylline",
+      "synonyms": []
+    },
+    "E 141": {
+      "name": "Kupferkomplexe der Chlorophylle und Chlorophylline",
+      "synonyms": []
+    },
+    "E 142": {
+      "name": "Grün S",
+      "synonyms": []
+    },
+    "E 150a": {
+      "name": "Zuckerkulör",
+      "synonyms": []
+    },
+    "E 150b": {
+      "name": "Sulfitlaugen-Zuckerkulör",
+      "synonyms": []
+    },
+    "E 150c": {
+      "name": "Ammoniak-Zuckerkulör",
+      "synonyms": []
+    },
+    "E 150d": {
+      "name": "Ammonsulfit-Zuckerkulör",
+      "synonyms": []
+    },
+    "E 151": {
+      "name": "Brillantschwarz PN",
+      "synonyms": []
+    },
+    "E 153": {
+      "name": "Pflanzenkohle",
+      "synonyms": []
+    },
+    "E 155": {
+      "name": "Braun HT",
+      "synonyms": []
+    },
+    "E 160a": {
+      "name": "Carotin",
+      "synonyms": []
+    },
+    "E 160b(i)": {
+      "name": "Annatto Bixin",
+      "synonyms": []
+    },
+    "E 160b(ii)": {
+      "name": "Annatto Norbixin",
+      "synonyms": []
+    },
+    "E 160c": {
+      "name": "Paprikaextrakt (Capsanthin, Capsorubin)",
+      "synonyms": []
+    },
+    "E 160d": {
+      "name": "Lycopin",
+      "synonyms": []
+    },
+    "E 160e": {
+      "name": "Beta-apo-8′-Carotinal (C 30)",
+      "synonyms": []
+    },
+    "E 161b": {
+      "name": "Lutein",
+      "synonyms": []
+    },
+    "E 161g": {
+      "name": "Canthaxanthin",
+      "synonyms": []
+    },
+    "E 162": {
+      "name": "Betanin (Betenrot)",
+      "synonyms": []
+    },
+    "E 163": {
+      "name": "Anthocyane",
+      "synonyms": []
+    },
+    "E 170": {
+      "name": "Calciumcarbonat",
+      "synonyms": []
+    },
+    "E 171": {
+      "name": "Titandioxid",
+      "synonyms": [],
+      "notAuthorized": true
+    },
+    "E 172": {
+      "name": "Eisenoxide und Eisenhydroxide",
+      "synonyms": ["Eisenoxide und -hydroxide"]
+    },
+    "E 173": {
+      "name": "Aluminium",
+      "synonyms": []
+    },
+    "E 174": {
+      "name": "Silber",
+      "synonyms": []
+    },
+    "E 175": {
+      "name": "Gold",
+      "synonyms": []
+    },
+    "E 180": {
+      "name": "Litholrubin BK",
+      "synonyms": []
+    },
+    "E 420": {
+      "name": "Sorbit",
+      "synonyms": []
+    },
+    "E 421": {
+      "name": "Mannit",
+      "synonyms": []
+    },
+    "E 950": {
+      "name": "Acesulfam K",
+      "synonyms": []
+    },
+    "E 951": {
+      "name": "Aspartam",
+      "synonyms": []
+    },
+    "E 952": {
+      "name": "Cyclamat",
+      "synonyms": []
+    },
+    "E 953": {
+      "name": "Isomalt",
+      "synonyms": []
+    },
+    "E 954": {
+      "name": "Saccharin",
+      "synonyms": []
+    },
+    "E 955": {
+      "name": "Sucralose",
+      "synonyms": []
+    },
+    "E 957": {
+      "name": "Thaumatin",
+      "synonyms": []
+    },
+    "E 959": {
+      "name": "Neohesperidin DC",
+      "synonyms": []
+    },
+    "E 960a": {
+      "name": "Steviolglycoside aus Stevia",
+      "synonyms": []
+    },
+    "E 960b": {
+      "name": "Steviolglycoside aus Fermentation",
+      "synonyms": []
+    },
+    "E 960c": {
+      "name": "Enzymatisch hergestellte Steviolglycoside",
+      "synonyms": []
+    },
+    "E 960d": {
+      "name": "Glycosylierte Steviolglycoside",
+      "synonyms": []
+    },
+    "E 961": {
+      "name": "Neotam",
+      "synonyms": []
+    },
+    "E 962": {
+      "name": "Aspartam-Acesulfamsalz",
+      "synonyms": []
+    },
+    "E 964": {
+      "name": "Polyglycitolsirup",
+      "synonyms": []
+    },
+    "E 965": {
+      "name": "Maltit",
+      "synonyms": []
+    },
+    "E 966": {
+      "name": "Lactit",
+      "synonyms": []
+    },
+    "E 967": {
+      "name": "Xylit",
+      "synonyms": []
+    },
+    "E 968": {
+      "name": "Erythrit",
+      "synonyms": []
+    },
+    "E 969": {
+      "name": "Advantam",
+      "synonyms": []
+    },
+    "E 200": {
+      "name": "Sorbinsäure",
+      "synonyms": []
+    },
+    "E 202": {
+      "name": "Kaliumsorbat",
+      "synonyms": []
+    },
+    "E 210": {
+      "name": "Benzoesäure",
+      "synonyms": []
+    },
+    "E 211": {
+      "name": "Natriumbenzoat",
+      "synonyms": []
+    },
+    "E 212": {
+      "name": "Kaliumbenzoat",
+      "synonyms": []
+    },
+    "E 213": {
+      "name": "Calciumbenzoat",
+      "synonyms": []
+    },
+    "E 214": {
+      "name": "PHB-Ester (Ethyl-p-hydroxybenzoat)",
+      "synonyms": []
+    },
+    "E 215": {
+      "name": "PHB-Ethylester-Natriumsalz (Natriumethyl-p-hydroxybenzoat)",
+      "synonyms": []
+    },
+    "E 218": {
+      "name": "PHB-Methylester (Methyl-p-hydroxybenzoat)",
+      "synonyms": []
+    },
+    "E 219": {
+      "name": "PHB-Methylester-Natriumsalz (Natriummethyl-p-hydroxybenzoat)",
+      "synonyms": []
+    },
+    "E 220": {
+      "name": "Schwefeldioxid",
+      "synonyms": []
+    },
+    "E 221": {
+      "name": "Natriumsulfit",
+      "synonyms": []
+    },
+    "E 222": {
+      "name": "Natriumhydrogensulfit",
+      "synonyms": []
+    },
+    "E 223": {
+      "name": "Natriummetabisulfit",
+      "synonyms": []
+    },
+    "E 224": {
+      "name": "Kaliummetabisulfit",
+      "synonyms": []
+    },
+    "E 226": {
+      "name": "Calciumsulfit",
+      "synonyms": []
+    },
+    "E 227": {
+      "name": "Calciumhydrogensulfit",
+      "synonyms": []
+    },
+    "E 228": {
+      "name": "Kaliumhydrogensulfit",
+      "synonyms": []
+    },
+    "E 234": {
+      "name": "Nisin",
+      "synonyms": []
+    },
+    "E 235": {
+      "name": "Natamycin",
+      "synonyms": []
+    },
+    "E 239": {
+      "name": "Hexamethylentetramin",
+      "synonyms": []
+    },
+    "E 242": {
+      "name": "Dimethyldicarbonat",
+      "synonyms": []
+    },
+    "E 243": {
+      "name": "Ethyllaurylarginat",
+      "synonyms": []
+    },
+    "E 246": {
+      "name": "Glykolipide",
+      "synonyms": []
+    },
+    "E 249": {
+      "name": "Kaliumnitrit",
+      "synonyms": []
+    },
+    "E 250": {
+      "name": "Natriumnitrit",
+      "synonyms": []
+    },
+    "E 251": {
+      "name": "Natriumnitrat",
+      "synonyms": []
+    },
+    "E 252": {
+      "name": "Kaliumnitrat",
+      "synonyms": []
+    },
+    "E 260": {
+      "name": "Essigsäure",
+      "synonyms": []
+    },
+    "E 261": {
+      "name": "Kaliumacetate",
+      "synonyms": []
+    },
+    "E 262": {
+      "name": "Natriumacetate",
+      "synonyms": ["Natriumacetat", "Natriumdiacetat"]
+    },
+    "E 263": {
+      "name": "Calciumacetat",
+      "synonyms": []
+    },
+    "E 267": {
+      "name": "Gepufferter Essig",
+      "synonyms": []
+    },
+    "E 270": {
+      "name": "Milchsäure",
+      "synonyms": []
+    },
+    "E 280": {
+      "name": "Propionsäure",
+      "synonyms": []
+    },
+    "E 281": {
+      "name": "Natriumpropionat",
+      "synonyms": []
+    },
+    "E 282": {
+      "name": "Calciumpropionat",
+      "synonyms": []
+    },
+    "E 283": {
+      "name": "Kaliumpropionat",
+      "synonyms": []
+    },
+    "E 284": {
+      "name": "Borsäure",
+      "synonyms": []
+    },
+    "E 285": {
+      "name": "Natriumtetraborat (Borax)",
+      "synonyms": []
+    },
+    "E 290": {
+      "name": "Kohlendioxid",
+      "synonyms": []
+    },
+    "E 296": {
+      "name": "Äpfelsäure",
+      "synonyms": []
+    },
+    "E 297": {
+      "name": "Fumarsäure",
+      "synonyms": []
+    },
+    "E 300": {
+      "name": "Ascorbinsäure",
+      "synonyms": []
+    },
+    "E 301": {
+      "name": "Natriumascorbat",
+      "synonyms": []
+    },
+    "E 302": {
+      "name": "Calciumascorbat",
+      "synonyms": []
+    },
+    "E 304": {
+      "name": "Fettsäureester der Ascorbinsäure",
+      "synonyms": []
+    },
     "E 306": {
       "name": "Stark tocopherolhaltige Extrakte",
       "synonyms": ["Tocopherol", "Tocopherole"]
+    },
+    "E 307": {
+      "name": "Alpha-Tocopherol",
+      "synonyms": []
+    },
+    "E 308": {
+      "name": "Gamma-Tocopherol",
+      "synonyms": []
+    },
+    "E 309": {
+      "name": "Delta-Tocopherol",
+      "synonyms": []
+    },
+    "E 310": {
+      "name": "Propylgallat",
+      "synonyms": []
+    },
+    "E 315": {
+      "name": "Isoascorbinsäure (Erythorbinsäure)",
+      "synonyms": []
+    },
+    "E 316": {
+      "name": "Natriumisoascorbat",
+      "synonyms": []
+    },
+    "E 319": {
+      "name": "Tertiär-Butylhydrochinon (TBHQ)",
+      "synonyms": []
+    },
+    "E 320": {
+      "name": "Butylhydroxyanisol (BHA)",
+      "synonyms": []
+    },
+    "E 321": {
+      "name": "Butylhydroxytoluen (BHT)",
+      "synonyms": []
     },
     "E 322": {
       "name": "Lecithine",
       "synonyms": ["Lecithin", "Sojalecithin", "Sonnenblumenlecithin", "Rapslecithin"]
     },
-    "E 330": { "name": "Citronensäure", "synonyms": ["Zitronensäure"] },
-    "E 334": { "name": "L(+)-Weinsäure", "synonyms": ["Weinsäure"] },
-    "E 336": { "name": "Kaliumtartrate", "synonyms": ["Kaliumtartrat", "Weinstein"] },
-    "E 341": { "name": "Calciumphosphate", "synonyms": ["Calciumphosphat", "Monocalciumphosphat"] },
-    "E 401": { "name": "Natriumalginat", "synonyms": [] },
-    "E 406": { "name": "Agar-Agar", "synonyms": ["Agar"] },
-    "E 407": { "name": "Carrageen", "synonyms": [] },
-    "E 410": { "name": "Johannisbrotkernmehl", "synonyms": [] },
-    "E 412": { "name": "Guarkernmehl", "synonyms": [] },
-    "E 415": { "name": "Xanthan", "synonyms": ["Xanthan Gum"] },
-    "E 422": { "name": "Glycerin", "synonyms": [] },
-    "E 440": { "name": "Pektine", "synonyms": ["Pektin"] },
-    "E 450": { "name": "Diphosphate", "synonyms": ["Diphosphat", "Dinatriumdiphosphat"] },
-    "E 466": { "name": "Natriumcarboxymethylcellulose", "synonyms": ["Carboxymethylcellulose"] },
-    "E 471": { "name": "Mono- und Diglyceride von Speisefettsäuren", "synonyms": [] },
+    "E 325": {
+      "name": "Natriumlactat",
+      "synonyms": []
+    },
+    "E 326": {
+      "name": "Kaliumlactat",
+      "synonyms": []
+    },
+    "E 327": {
+      "name": "Calciumlactat",
+      "synonyms": []
+    },
+    "E 330": {
+      "name": "Citronensäure",
+      "synonyms": ["Zitronensäure"]
+    },
+    "E 331": {
+      "name": "Natriumcitrate",
+      "synonyms": []
+    },
+    "E 332": {
+      "name": "Kaliumcitrate",
+      "synonyms": []
+    },
+    "E 333": {
+      "name": "Calciumcitrate",
+      "synonyms": []
+    },
+    "E 334": {
+      "name": "Weinsäure (L+)",
+      "synonyms": ["Weinsäure", "L(+)-Weinsäure"]
+    },
+    "E 335": {
+      "name": "Natriumtartrate",
+      "synonyms": []
+    },
+    "E 336": {
+      "name": "Kaliumtartrate",
+      "synonyms": ["Kaliumtartrat", "Weinstein"]
+    },
+    "E 337": {
+      "name": "Natrium-Kaliumtartrat",
+      "synonyms": []
+    },
+    "E 338": {
+      "name": "Phosphorsäure",
+      "synonyms": []
+    },
+    "E 339": {
+      "name": "Natriumphosphate",
+      "synonyms": []
+    },
+    "E 340": {
+      "name": "Kaliumphosphate",
+      "synonyms": []
+    },
+    "E 341": {
+      "name": "Calciumphosphate",
+      "synonyms": ["Calciumphosphat", "Monocalciumphosphat"]
+    },
+    "E 343": {
+      "name": "Magnesiumphosphate",
+      "synonyms": []
+    },
+    "E 345(i)": {
+      "name": "Trimagnesiumdicitrat",
+      "synonyms": []
+    },
+    "E 350": {
+      "name": "Natriummalate",
+      "synonyms": []
+    },
+    "E 351": {
+      "name": "Kaliummalat",
+      "synonyms": []
+    },
+    "E 352": {
+      "name": "Calciummalate",
+      "synonyms": []
+    },
+    "E 353": {
+      "name": "Metaweinsäure",
+      "synonyms": []
+    },
+    "E 354": {
+      "name": "Calciumtartrat",
+      "synonyms": []
+    },
+    "E 355": {
+      "name": "Adipinsäure",
+      "synonyms": []
+    },
+    "E 356": {
+      "name": "Natriumadipat",
+      "synonyms": []
+    },
+    "E 357": {
+      "name": "Kaliumadipat",
+      "synonyms": []
+    },
+    "E 363": {
+      "name": "Bernsteinsäure",
+      "synonyms": []
+    },
+    "E 380": {
+      "name": "Triammoniumcitrat",
+      "synonyms": []
+    },
+    "E 385": {
+      "name": "Calcium-Dinatrium-Ethylendiamintetraacetat (Calcium-Dinatrium-EDTA)",
+      "synonyms": []
+    },
+    "E 392": {
+      "name": "Extrakt aus Rosmarin",
+      "synonyms": []
+    },
+    "E 400": {
+      "name": "Alginsäure",
+      "synonyms": []
+    },
+    "E 401": {
+      "name": "Natriumalginat",
+      "synonyms": []
+    },
+    "E 402": {
+      "name": "Kaliumalginat",
+      "synonyms": []
+    },
+    "E 403": {
+      "name": "Ammoniumalginat",
+      "synonyms": []
+    },
+    "E 404": {
+      "name": "Calciumalginat",
+      "synonyms": []
+    },
+    "E 405": {
+      "name": "Propylenglycolalginat",
+      "synonyms": []
+    },
+    "E 406": {
+      "name": "Agar-Agar",
+      "synonyms": ["Agar"]
+    },
+    "E 407a": {
+      "name": "Verarbeitete Euchema-Algen",
+      "synonyms": []
+    },
+    "E 407": {
+      "name": "Carrageen",
+      "synonyms": []
+    },
+    "E 410": {
+      "name": "Johannisbrotkernmehl",
+      "synonyms": []
+    },
+    "E 412": {
+      "name": "Guarkernmehl",
+      "synonyms": []
+    },
+    "E 413": {
+      "name": "Traganth",
+      "synonyms": []
+    },
+    "E 414": {
+      "name": "Gummi arabicum",
+      "synonyms": []
+    },
+    "E 415": {
+      "name": "Xanthan",
+      "synonyms": ["Xanthan Gum"]
+    },
+    "E 416": {
+      "name": "Karayagummi",
+      "synonyms": []
+    },
+    "E 417": {
+      "name": "Tarakernmehl",
+      "synonyms": []
+    },
+    "E 418": {
+      "name": "Gellan",
+      "synonyms": []
+    },
+    "E 422": {
+      "name": "Glycerin",
+      "synonyms": []
+    },
+    "E 423": {
+      "name": "Octenylbernsteinsäuremodifiziertes Gummi arabicum",
+      "synonyms": []
+    },
+    "E 425": {
+      "name": "Konjak",
+      "synonyms": []
+    },
+    "E 426": {
+      "name": "Sojabohnen-Polyose",
+      "synonyms": []
+    },
+    "E 427": {
+      "name": "Cassia-Gummi",
+      "synonyms": []
+    },
+    "E 431": {
+      "name": "Polyoxyethylen(40)stearat",
+      "synonyms": []
+    },
+    "E 432": {
+      "name": "Polyoxyethylensorbitanmonolaurat (Polysorbat 20)",
+      "synonyms": []
+    },
+    "E 433": {
+      "name": "Polyoxyethylensorbitanmonooleat (Polysorbat 80)",
+      "synonyms": []
+    },
+    "E 434": {
+      "name": "Polyoxyethylensorbitanmonopalmitat (Polysorbat 40)",
+      "synonyms": []
+    },
+    "E 435": {
+      "name": "Polyoxyethylensorbitanmonostearat (Polysorbat 60)",
+      "synonyms": []
+    },
+    "E 436": {
+      "name": "Polyoxyethylensorbitantristearat (Polysorbat 65)",
+      "synonyms": []
+    },
+    "E 440": {
+      "name": "Pektine",
+      "synonyms": ["Pektin"]
+    },
+    "E 442": {
+      "name": "Ammoniumphosphatide",
+      "synonyms": []
+    },
+    "E 444": {
+      "name": "Saccharoseacetatisobutyrat",
+      "synonyms": []
+    },
+    "E 445": {
+      "name": "Glycerinester aus Wurzelharz",
+      "synonyms": []
+    },
+    "E 450": {
+      "name": "Diphosphate",
+      "synonyms": ["Diphosphat", "Dinatriumdiphosphat"]
+    },
+    "E 451": {
+      "name": "Triphosphate",
+      "synonyms": []
+    },
+    "E 452": {
+      "name": "Polyphosphate",
+      "synonyms": []
+    },
+    "E 456": {
+      "name": "Kaliumpolyaspartat",
+      "synonyms": []
+    },
+    "E 459": {
+      "name": "Beta-Cyclodextrin",
+      "synonyms": []
+    },
+    "E 460": {
+      "name": "Cellulose",
+      "synonyms": []
+    },
+    "E 461": {
+      "name": "Methylcellulose",
+      "synonyms": []
+    },
+    "E 462": {
+      "name": "Ethylcellulose",
+      "synonyms": []
+    },
+    "E 463": {
+      "name": "Hydroxypropylcellulose",
+      "synonyms": []
+    },
+    "E 463a": {
+      "name": "Niedrig substituierte Hydroxypropylcellulose (L-HPC)",
+      "synonyms": []
+    },
+    "E 464": {
+      "name": "Hydroxypropylmethylcellulose",
+      "synonyms": []
+    },
+    "E 465": {
+      "name": "Ethylmethylcellulose",
+      "synonyms": []
+    },
+    "E 466": {
+      "name": "Natrium-Carboxymethylcellulose, Cellulosegummi",
+      "synonyms": ["Carboxymethylcellulose", "Natriumcarboxymethylcellulose"]
+    },
+    "E 468": {
+      "name": "Vernetzte Carboxymethylcellulose (modifizierter Cellulosegummi)",
+      "synonyms": []
+    },
+    "E 469": {
+      "name": "Enzymatisch hydrolysierte Carboxymethylcellulose",
+      "synonyms": []
+    },
+    "E 470a": {
+      "name": "Natrium-, Kalium- und Calciumsalze der Speisefettsäuren",
+      "synonyms": []
+    },
+    "E 470b": {
+      "name": "Magnesiumsalze der Speisefettsäuren",
+      "synonyms": []
+    },
+    "E 471": {
+      "name": "Mono- und Diglyceride von Speisefettsäuren",
+      "synonyms": []
+    },
+    "E 472a": {
+      "name": "Essigsäureester von Mono- und Diglyceriden von Speisefettsäuren",
+      "synonyms": []
+    },
+    "E 472b": {
+      "name": "Milchsäureester von Mono- und Diglyceriden von Speisefettsäuren",
+      "synonyms": []
+    },
+    "E 472c": {
+      "name": "Citronensäureester von Mono- und Diglyceriden von Speisefettsäuren",
+      "synonyms": []
+    },
+    "E 472d": {
+      "name": "Weinsäureester von Mono- und Diglyceriden von Speisefettsäuren",
+      "synonyms": []
+    },
     "E 472e": {
       "name": "Mono- und Diacetylweinsäureester von Mono- und Diglyceriden von Speisefettsäuren",
       "synonyms": []
     },
-    "E 481": { "name": "Natriumstearoyl-2-lactylat", "synonyms": [] },
-    "E 482": { "name": "Calciumstearoyl-2-lactylat", "synonyms": [] },
-    "E 500": { "name": "Natriumcarbonate", "synonyms": ["Natriumhydrogencarbonat", "Natron"] },
+    "E 472f": {
+      "name": "Gemischte Essig- und Weinsäureester von Mono- und Diglyceriden von Speisefettsäuren",
+      "synonyms": []
+    },
+    "E 473": {
+      "name": "Zuckerester von Speisefettsäuren",
+      "synonyms": []
+    },
+    "E 474": {
+      "name": "Zuckerglyceride",
+      "synonyms": []
+    },
+    "E 475": {
+      "name": "Polyglycerinester von Speisefettsäuren",
+      "synonyms": []
+    },
+    "E 476": {
+      "name": "Polyglycerin-Polyricinoleat",
+      "synonyms": []
+    },
+    "E 477": {
+      "name": "Propylenglycolester von Speisefettsäuren",
+      "synonyms": []
+    },
+    "E 479b": {
+      "name": "Thermooxidiertes Sojaöl verestert mit Mono- und Diglyceriden von Speisefettsäuren",
+      "synonyms": []
+    },
+    "E 481": {
+      "name": "Natriumstearoyl-2-lactylat",
+      "synonyms": []
+    },
+    "E 482": {
+      "name": "Calciumstearoyl-2-lactylat",
+      "synonyms": []
+    },
+    "E 491": {
+      "name": "Sorbitanmonostearat",
+      "synonyms": []
+    },
+    "E 492": {
+      "name": "Sorbitantristearat",
+      "synonyms": []
+    },
+    "E 493": {
+      "name": "Sorbitanmonolaurat",
+      "synonyms": []
+    },
+    "E 494": {
+      "name": "Sorbitanmonooleat",
+      "synonyms": []
+    },
+    "E 495": {
+      "name": "Sorbitanmonopalmitat",
+      "synonyms": []
+    },
+    "E 499": {
+      "name": "Stigmasterinreiche Phytosterine",
+      "synonyms": []
+    },
+    "E 500": {
+      "name": "Natriumcarbonate",
+      "synonyms": ["Natriumhydrogencarbonat", "Natron"]
+    },
+    "E 501": {
+      "name": "Kaliumcarbonate",
+      "synonyms": []
+    },
     "E 503": {
       "name": "Ammoniumcarbonate",
       "synonyms": ["Ammoniumhydrogencarbonat", "Hirschhornsalz"]
     },
-    "E 516": { "name": "Calciumsulfat", "synonyms": [] },
-    "E 920": { "name": "L-Cystein", "synonyms": [] }
+    "E 504": {
+      "name": "Magnesiumcarbonate",
+      "synonyms": []
+    },
+    "E 507": {
+      "name": "Salzsäure",
+      "synonyms": []
+    },
+    "E 508": {
+      "name": "Kaliumchlorid",
+      "synonyms": []
+    },
+    "E 509": {
+      "name": "Calciumchlorid",
+      "synonyms": []
+    },
+    "E 511": {
+      "name": "Magnesiumchlorid",
+      "synonyms": []
+    },
+    "E 512": {
+      "name": "Zinn(II)-chlorid",
+      "synonyms": []
+    },
+    "E 513": {
+      "name": "Schwefelsäure",
+      "synonyms": []
+    },
+    "E 514": {
+      "name": "Natriumsulfate",
+      "synonyms": []
+    },
+    "E 515": {
+      "name": "Kaliumsulfate",
+      "synonyms": []
+    },
+    "E 516": {
+      "name": "Calciumsulfat",
+      "synonyms": []
+    },
+    "E 517": {
+      "name": "Ammoniumsulfat",
+      "synonyms": []
+    },
+    "E 520": {
+      "name": "Aluminiumsulfat",
+      "synonyms": []
+    },
+    "E 521": {
+      "name": "Aluminiumnatriumsulfat",
+      "synonyms": []
+    },
+    "E 522": {
+      "name": "Aluminiumkaliumsulfat",
+      "synonyms": []
+    },
+    "E 523": {
+      "name": "Aluminiumammoniumsulfat",
+      "synonyms": []
+    },
+    "E 524": {
+      "name": "Natriumhydroxid",
+      "synonyms": []
+    },
+    "E 525": {
+      "name": "Kaliumhydroxid",
+      "synonyms": []
+    },
+    "E 526": {
+      "name": "Calciumhydroxid",
+      "synonyms": []
+    },
+    "E 527": {
+      "name": "Ammoniumhydroxid",
+      "synonyms": []
+    },
+    "E 528": {
+      "name": "Magnesiumhydroxid",
+      "synonyms": []
+    },
+    "E 529": {
+      "name": "Calciumoxid",
+      "synonyms": []
+    },
+    "E 530": {
+      "name": "Magnesiumoxid",
+      "synonyms": []
+    },
+    "E 534": {
+      "name": "Eisentartrat",
+      "synonyms": []
+    },
+    "E 535": {
+      "name": "Natriumferrocyanid",
+      "synonyms": []
+    },
+    "E 536": {
+      "name": "Kaliumferrocyanid",
+      "synonyms": []
+    },
+    "E 538": {
+      "name": "Calciumferrocyanid",
+      "synonyms": []
+    },
+    "E 541": {
+      "name": "Saures Natriumaluminiumphosphat",
+      "synonyms": []
+    },
+    "E 551": {
+      "name": "Siliciumdioxid",
+      "synonyms": []
+    },
+    "E 552": {
+      "name": "Calciumsilicat",
+      "synonyms": []
+    },
+    "E 553a": {
+      "name": "Magnesiumsilicate",
+      "synonyms": []
+    },
+    "E 553b": {
+      "name": "Talkum",
+      "synonyms": []
+    },
+    "E 554": {
+      "name": "Natriumaluminiumsilicat",
+      "synonyms": []
+    },
+    "E 555": {
+      "name": "Kaliumaluminiumsilicat",
+      "synonyms": []
+    },
+    "E 556": {
+      "name": "Calciumaluminiumsilicat",
+      "synonyms": []
+    },
+    "E 558": {
+      "name": "Bentonit",
+      "synonyms": []
+    },
+    "E 559": {
+      "name": "Aluminiumsilicat (Kaolin)",
+      "synonyms": []
+    },
+    "E 570": {
+      "name": "Speisefettsäuren",
+      "synonyms": []
+    },
+    "E 574": {
+      "name": "Gluconsäure",
+      "synonyms": []
+    },
+    "E 575": {
+      "name": "Glucono-delta-Lacton",
+      "synonyms": []
+    },
+    "E 576": {
+      "name": "Natriumgluconat",
+      "synonyms": []
+    },
+    "E 577": {
+      "name": "Kaliumgluconat",
+      "synonyms": []
+    },
+    "E 578": {
+      "name": "Calciumgluconat",
+      "synonyms": []
+    },
+    "E 579": {
+      "name": "Eisen(II)-gluconat",
+      "synonyms": []
+    },
+    "E 585": {
+      "name": "Eisen(II)-lactat",
+      "synonyms": []
+    },
+    "E 586": {
+      "name": "4-Hexylresorcin",
+      "synonyms": []
+    },
+    "E 620": {
+      "name": "Glutaminsäure",
+      "synonyms": []
+    },
+    "E 621": {
+      "name": "Mononatriumglutamat",
+      "synonyms": []
+    },
+    "E 622": {
+      "name": "Monokaliumglutamat",
+      "synonyms": []
+    },
+    "E 623": {
+      "name": "Calciumdiglutamat",
+      "synonyms": []
+    },
+    "E 624": {
+      "name": "Monoammoniumglutamat",
+      "synonyms": []
+    },
+    "E 625": {
+      "name": "Magnesiumdiglutamat",
+      "synonyms": []
+    },
+    "E 626": {
+      "name": "Guanylsäure",
+      "synonyms": []
+    },
+    "E 627": {
+      "name": "Dinatriumguanylat",
+      "synonyms": []
+    },
+    "E 628": {
+      "name": "Dikaliumguanylat",
+      "synonyms": []
+    },
+    "E 629": {
+      "name": "Calciumguanylat",
+      "synonyms": []
+    },
+    "E 630": {
+      "name": "Inosinsäure",
+      "synonyms": []
+    },
+    "E 631": {
+      "name": "Dinatriuminosinat",
+      "synonyms": []
+    },
+    "E 632": {
+      "name": "Dikaliuminosinat",
+      "synonyms": []
+    },
+    "E 633": {
+      "name": "Calciuminosinat",
+      "synonyms": []
+    },
+    "E 634": {
+      "name": "Calcium-5′-ribonucleotid",
+      "synonyms": []
+    },
+    "E 635": {
+      "name": "Dinatrium-5′-ribonucleotid",
+      "synonyms": []
+    },
+    "E 640": {
+      "name": "Glycin und seine Natriumsalze",
+      "synonyms": []
+    },
+    "E 641": {
+      "name": "L-Leucin",
+      "synonyms": []
+    },
+    "E 650": {
+      "name": "Zinkacetat",
+      "synonyms": []
+    },
+    "E 900": {
+      "name": "Dimethylpolysiloxan",
+      "synonyms": []
+    },
+    "E 901": {
+      "name": "Bienenwachs, weiß und gelb",
+      "synonyms": []
+    },
+    "E 902": {
+      "name": "Candelillawachs",
+      "synonyms": []
+    },
+    "E 903": {
+      "name": "Carnaubawachs",
+      "synonyms": []
+    },
+    "E 904": {
+      "name": "Schellack",
+      "synonyms": []
+    },
+    "E 905": {
+      "name": "Mikrokristallines Wachs",
+      "synonyms": []
+    },
+    "E 907": {
+      "name": "Hydriertes Poly-1-decen",
+      "synonyms": []
+    },
+    "E 914": {
+      "name": "Polyethylenwachsoxidate",
+      "synonyms": []
+    },
+    "E 920": {
+      "name": "L-Cystein",
+      "synonyms": []
+    },
+    "E 927b": {
+      "name": "Carbamid",
+      "synonyms": []
+    },
+    "E 938": {
+      "name": "Argon",
+      "synonyms": []
+    },
+    "E 939": {
+      "name": "Helium",
+      "synonyms": []
+    },
+    "E 941": {
+      "name": "Stickstoff",
+      "synonyms": []
+    },
+    "E 942": {
+      "name": "Distickstoffoxid",
+      "synonyms": []
+    },
+    "E 943a": {
+      "name": "Butan",
+      "synonyms": []
+    },
+    "E 943b": {
+      "name": "Isobutan",
+      "synonyms": []
+    },
+    "E 944": {
+      "name": "Propan",
+      "synonyms": []
+    },
+    "E 948": {
+      "name": "Sauerstoff",
+      "synonyms": []
+    },
+    "E 949": {
+      "name": "Wasserstoff",
+      "synonyms": []
+    },
+    "E 999": {
+      "name": "Quillajaextrakt",
+      "synonyms": []
+    },
+    "E 1103": {
+      "name": "Invertase",
+      "synonyms": []
+    },
+    "E 1105": {
+      "name": "Lysozym",
+      "synonyms": []
+    },
+    "E 1200": {
+      "name": "Polydextrose",
+      "synonyms": []
+    },
+    "E 1201": {
+      "name": "Polyvinylpyrrolidon",
+      "synonyms": []
+    },
+    "E 1202": {
+      "name": "Polyvinylpolypyrrolidon",
+      "synonyms": []
+    },
+    "E 1203": {
+      "name": "Polyvinylalkohol (PVA)",
+      "synonyms": []
+    },
+    "E 1204": {
+      "name": "Pullulan",
+      "synonyms": []
+    },
+    "E 1205": {
+      "name": "Basisches Methacrylat-Copolymer",
+      "synonyms": []
+    },
+    "E 1206": {
+      "name": "Neutrales Methacrylat-Copolymer",
+      "synonyms": []
+    },
+    "E 1207": {
+      "name": "Anionisches Methacrylat-Copolymer",
+      "synonyms": []
+    },
+    "E 1208": {
+      "name": "Polyvinylpyrrolidon-Vinylacetat-Copolymer",
+      "synonyms": []
+    },
+    "E 1209": {
+      "name": "Polyvinyl alcohol-polyethylene glycol-graft-co-polymer",
+      "synonyms": []
+    },
+    "E 1210": {
+      "name": "Carbomer",
+      "synonyms": []
+    },
+    "E 1404": {
+      "name": "Oxidierte Stärke",
+      "synonyms": []
+    },
+    "E 1410": {
+      "name": "Monostärkephosphat",
+      "synonyms": []
+    },
+    "E 1412": {
+      "name": "Distärkephosphat",
+      "synonyms": []
+    },
+    "E 1413": {
+      "name": "Phosphatiertes Distärkephosphat",
+      "synonyms": []
+    },
+    "E 1414": {
+      "name": "Acetyliertes Distärkephosphat",
+      "synonyms": []
+    },
+    "E 1420": {
+      "name": "Acetylierte Stärke",
+      "synonyms": []
+    },
+    "E 1422": {
+      "name": "Acetyliertes Distärkeadipat",
+      "synonyms": []
+    },
+    "E 1440": {
+      "name": "Hydroxypropylstärke",
+      "synonyms": []
+    },
+    "E 1442": {
+      "name": "Hydroxypropyldistärkephosphat",
+      "synonyms": []
+    },
+    "E 1450": {
+      "name": "Stärkenatriumoctenylsuccinat",
+      "synonyms": []
+    },
+    "E 1451": {
+      "name": "Acetylierte oxidierte Stärke",
+      "synonyms": []
+    },
+    "E 1452": {
+      "name": "Stärkealuminiumoctenylsuccinat",
+      "synonyms": []
+    },
+    "E 1505": {
+      "name": "Triethylcitrat",
+      "synonyms": []
+    },
+    "E 1517": {
+      "name": "Glycerindiacetat (Diacetin)",
+      "synonyms": []
+    },
+    "E 1518": {
+      "name": "Glycerintriacetat (Triacetin)",
+      "synonyms": []
+    },
+    "E 1519": {
+      "name": "Benzylalkohol",
+      "synonyms": []
+    },
+    "E 1520": {
+      "name": "Propylenglycol (1,2-Propandiol)",
+      "synonyms": []
+    },
+    "E 1521": {
+      "name": "Polyethylenglycol",
+      "synonyms": []
+    }
   }
 }

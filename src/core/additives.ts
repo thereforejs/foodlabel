@@ -9,8 +9,8 @@ export interface AdditiveIdentity {
 }
 
 export function toENumber(text: string): string | undefined {
-  const match = /^e\s*(\d{3,4}[a-z]?)$/.exec(normalizeTerm(text));
-  return match ? `E ${match[1]}` : undefined;
+  const match = /^e\s*(\d{3,4}[a-z]?)\s*(\([ivx]+\))?$/.exec(normalizeTerm(text));
+  return match ? `E ${match[1]}${match[2] ?? ""}` : undefined;
 }
 
 export function createAdditiveCatalog(vocabulary: AdditiveVocabulary) {
@@ -18,6 +18,8 @@ export function createAdditiveCatalog(vocabulary: AdditiveVocabulary) {
   for (const id of ADDITIVE_CLASS_IDS) {
     classes.set(normalizeTerm(vocabulary.classes[id].singular), id);
     classes.set(normalizeTerm(vocabulary.classes[id].plural), id);
+    for (const spelling of vocabulary.classes[id].accepted ?? [])
+      classes.set(normalizeTerm(spelling), id);
   }
   const byName = new Map<string, string>();
   for (const [eNumber, entry] of Object.entries(vocabulary.additives)) {
@@ -35,9 +37,11 @@ export function createAdditiveCatalog(vocabulary: AdditiveVocabulary) {
       const eNumber = ingredient.eNumber
         ? toENumber(ingredient.eNumber)
         : byName.get(normalizeTerm(ingredient.name));
-      if (!eNumber || !(eNumber in vocabulary.additives)) {
+      const entry = eNumber === undefined ? undefined : vocabulary.additives[eNumber];
+      if (!eNumber || !entry) {
         fail("additive.unknown", path, { name: ingredient.eNumber ?? ingredient.name });
       }
+      if (entry.notAuthorized) fail("additive.notAuthorized", path, { name: entry.name, eNumber });
       return { eNumber, additiveClass };
     },
 
