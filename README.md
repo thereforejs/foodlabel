@@ -70,6 +70,28 @@ The same recipe with `{ format: "markdown", highlight: "bold", highlightScope: "
 
 `createIngredientsList` returns the same result as data (weights, allergens, groups) instead of text.
 
+### May contain
+
+`createTraces` collects the `traces` of all raw materials into one statement for below the list: each
+word once, in the order of Annex II, without what the ingredient list already names, and without
+revealing which raw material it comes from.
+
+```ts
+import { createDeclaration, createTraces } from "@thereforejs/foodlabel";
+
+const recipe = [
+  { name: "Weizenmehl", quantity: 600, unit: "weight", traces: ["Sesam"] },
+  { name: "Butter", quantity: 300, unit: "weight" },
+  { name: "Zucker", quantity: 100, unit: "weight", traces: ["Haselnüsse", "Milch", "Sesam"] },
+];
+
+createDeclaration(recipe); // WEIZENMEHL, BUTTER, Zucker
+createTraces(recipe); // Kann Spuren enthalten: HASELNÜSSE, SESAM.
+```
+
+The statement is voluntary information (Art. 36 of the regulation). foodlabel never derives it: it only
+passes on what the specifications say.
+
 ### Input
 
 | Field                        | Meaning                                                                                                                                           |
@@ -81,6 +103,7 @@ The same recipe with `{ format: "markdown", highlight: "bold", highlightScope: "
 | `quid`                       | Show its percentage                                                                                                                               |
 | `eNumberCategory`, `eNumber` | Marks an additive: its class ("Emulgator") and, if known, its E number                                                                            |
 | `sulphite`                   | SO₂ in mg/kg from the specification; on a raw material it covers its whole ingredient list. Above 10 mg/kg in the product, sulphites are declared |
+| `traces`                     | "May contain" words from the specification, e.g. `["Haselnüsse", "Sesam"]`                                                                        |
 
 Weights are taken as they end up in the product: baking loss is the caller's business.
 
