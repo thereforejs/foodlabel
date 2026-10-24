@@ -72,14 +72,15 @@ The same recipe with `{ format: "markdown", highlight: "bold", highlightScope: "
 
 ### Input
 
-| Field                        | Meaning                                                                    |
-| ---------------------------- | -------------------------------------------------------------------------- |
-| `name`                       | Ingredient name as it should appear on the label                           |
-| `quantity`, `unit`           | `"weight"` in grams, or `"percent"` of the parent                          |
-| `children`                   | The raw material's own ingredients; they must add up to the parent exactly |
-| `group`                      | Keep it as one entry with its ingredients in brackets                      |
-| `quid`                       | Show its percentage                                                        |
-| `eNumberCategory`, `eNumber` | Marks an additive: its class ("Emulgator") and, if known, its E number     |
+| Field                        | Meaning                                                                                                                                           |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`                       | Ingredient name as it should appear on the label                                                                                                  |
+| `quantity`, `unit`           | `"weight"` in grams, or `"percent"` of the parent                                                                                                 |
+| `children`                   | The raw material's own ingredients; they must add up to the parent exactly                                                                        |
+| `group`                      | Keep it as one entry with its ingredients in brackets                                                                                             |
+| `quid`                       | Show its percentage                                                                                                                               |
+| `eNumberCategory`, `eNumber` | Marks an additive: its class ("Emulgator") and, if known, its E number                                                                            |
+| `sulphite`                   | SO₂ in mg/kg from the specification; on a raw material it covers its whole ingredient list. Above 10 mg/kg in the product, sulphites are declared |
 
 Weights are taken as they end up in the product: baking loss is the caller's business.
 
