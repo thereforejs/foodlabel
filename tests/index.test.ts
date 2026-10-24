@@ -21,6 +21,7 @@ describe("public api", () => {
       "DiagnosticError",
       "createDeclaration",
       "createIngredientsList",
+      "createTraces",
     ]);
   });
 

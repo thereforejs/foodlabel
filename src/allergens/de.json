@@ -1,6 +1,7 @@
 {
   "language": "de",
   "source": "Regulation (EU) No 1169/2011, Annex II",
+  "mayContain": "Kann Spuren enthalten",
   "allergens": {
     "gluten": {
       "label": "Glutenhaltiges Getreide",
@@ -31,6 +32,14 @@
         "Malz": null,
         "Malze": null,
         "Gluten": null
+      },
+      "kinds": {
+        "Hartweizen": "Weizen",
+        "Weichweizen": "Weizen",
+        "Weizeneiweiß": "Weizen",
+        "Weizenkleber": "Weizen",
+        "Gersten": "Gerste",
+        "Hafermilch": "Hafer"
       }
     },
     "crustaceans": {
@@ -167,6 +176,21 @@
         "Nüsse": null,
         "Nougat": null,
         "Marzipan": "Mandel"
+      },
+      "kinds": {
+        "Mandeln": "Mandel",
+        "Mandelmilch": "Mandel",
+        "Haselnüsse": "Haselnuss",
+        "Walnüsse": "Walnuss",
+        "Cashew": "Cashewnuss",
+        "Cashewnüsse": "Cashewnuss",
+        "Pekannüsse": "Pekannuss",
+        "Paranüsse": "Paranuss",
+        "Pistazien": "Pistazie",
+        "Macadamia": "Macadamianuss",
+        "Macadamianüsse": "Macadamianuss",
+        "Queenslandnuss": "Macadamianuss",
+        "Queenslandnüsse": "Macadamianuss"
       }
     },
     "celery": {

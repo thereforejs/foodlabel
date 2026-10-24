@@ -26,6 +26,18 @@ describe("vocabulary de", () => {
   });
 });
 
+describe("vocabulary kinds", () => {
+  test("every variant and every base form is a term of its allergen", () => {
+    for (const id of ALLERGEN_IDS) {
+      const { terms, kinds = {} } = vocabulary.allergens[id];
+      for (const [variant, base] of Object.entries(kinds)) {
+        expect(terms).toContain(variant);
+        expect(terms).toContain(base);
+      }
+    }
+  });
+});
+
 describe("detect", () => {
   test("real recipe", () => {
     expect(detect("Roggenmehl")).toEqual({ allergens: ["gluten"], unknown: [] });

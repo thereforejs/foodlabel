@@ -4,7 +4,8 @@ import { resolveOptions } from "../core/options.ts";
 import { fail } from "../diagnostics/fail.ts";
 import type { DeclarationOptions, Ingredient, ResolvedIngredient } from "../types/index.ts";
 import { allergenWords } from "./allergen-words.ts";
-import { createMarkup, type Markup } from "./markup.ts";
+import { highlight } from "./highlight.ts";
+import { createMarkup } from "./markup.ts";
 import { formatPercent } from "./percent.ts";
 
 const HUNDRED = decimal("100");
@@ -76,21 +77,4 @@ export function createDeclaration(
   }
 
   return list(items, sum(items.map((item) => item.weight)));
-}
-
-function highlight(item: ResolvedIngredient, markup: Markup, options: DeclarationOptions): string {
-  if (item.pieces.length === 0) return markup.plain(item.name);
-  if (options.highlightScope === "name") return markup.strong(item.name);
-
-  const marked = Array.from({ length: item.name.length }, () => false);
-  for (const piece of item.pieces) marked.fill(true, piece.start, piece.end);
-  let text = "";
-  let start = 0;
-  for (let index = 1; index <= item.name.length; index++) {
-    if (index < item.name.length && marked[index] === marked[start]) continue;
-    const part = item.name.slice(start, index);
-    text += marked[start] ? markup.strong(part) : markup.plain(part);
-    start = index;
-  }
-  return text;
 }
