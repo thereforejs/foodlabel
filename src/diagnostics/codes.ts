@@ -24,6 +24,9 @@ export const DIAGNOSTICS = {
     message: (p) =>
       `"${p.name}" contains ${p.allergen} but does not say which kind, use a more specific name`,
   },
+  "sulphite.invalid": {
+    message: (p) => `sulphite ${p.value} is no amount in mg/kg`,
+  },
   "additive.functionNotAllowed": {
     source: "Regulation (EU) No 1169/2011, Annex VII, Part C",
     message: (p) => `"${p.class}" is no additive class`,

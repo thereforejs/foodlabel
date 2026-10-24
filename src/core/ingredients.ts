@@ -2,8 +2,11 @@ import {
   add,
   compare,
   type Decimal,
+  decimal,
   equals,
   fromNumber,
+  isZero,
+  multiply,
   percentageOf,
   sum,
   toDecimalString,
@@ -24,6 +27,10 @@ import { resolveOptions } from "./options.ts";
 
 const detect = createAllergenDetector(allergensDe);
 const catalog = createAdditiveCatalog(additivesDe);
+
+const GRAMS_TO_KG = decimal("0.001");
+// Annex II No 12: sulphites count as allergen above 10 mg/kg SO2 in the product.
+const SULPHITE_LIMIT = decimal("10");
 
 //#region Helper
 
@@ -49,6 +56,7 @@ function toGroup(
     unknown: children.flatMap((child) => child.unknown),
     pieces: [],
     children,
+    ...sulphiteOf(children),
   };
 }
 
@@ -67,6 +75,7 @@ function merge(items: ResolvedIngredient[]): ResolvedIngredient[] {
       ...known,
       weight: add(known.weight, item.weight),
       quid: known.quid || item.quid,
+      ...sulphiteOf([known, item]),
     };
     byKey.set(key, merged ?? item);
   });
@@ -79,10 +88,17 @@ function resolve(
   parent: Decimal | undefined,
   path: string,
   options: DeclarationOptions,
+  inheritedSulphite?: number,
 ): ResolvedIngredient[] {
   const items = ingredients.flatMap((ingredient, index) => {
     const at = `${path}[${index}]`;
     const weight = toGrams(ingredient, parent, at);
+    const own = ingredient.sulphite;
+    if (own !== undefined && !(Number.isFinite(own) && own >= 0)) {
+      fail("sulphite.invalid", at, { value: String(own) });
+    }
+    // A raw material's own amount covers its whole ingredient list; amounts below it are included.
+    const sulphite = inheritedSulphite ?? own;
     if (!ingredient.children?.length) {
       const additive = catalog.identify(ingredient, at);
       const match = detect(ingredient.name);
@@ -96,11 +112,14 @@ function resolve(
           unknown,
           ...additive,
           quid: ingredient.quid,
+          ...(sulphite !== undefined && {
+            sulphiteMg: multiply(multiply(fromNumber(sulphite), weight), GRAMS_TO_KG),
+          }),
         },
       ];
     }
 
-    const children = resolve(ingredient.children, weight, `${at}.children`, options);
+    const children = resolve(ingredient.children, weight, `${at}.children`, options, sulphite);
     const total = sum(children.map((child) => child.weight));
     if (!equals(total, weight)) {
       fail("share.sumNot100", `${at}.children`, {
@@ -141,11 +160,36 @@ function present(items: ResolvedIngredient[]): ResolvedIngredient[] {
   return byWeight(entries);
 }
 
+function sulphiteOf(items: ResolvedIngredient[]): { sulphiteMg?: Decimal } {
+  const amounts = items.flatMap((item) => (item.sulphiteMg ? [item.sulphiteMg] : []));
+  return amounts.length > 0 ? { sulphiteMg: sum(amounts) } : {};
+}
+
+// The amount can only add the allergen: a named sulphite stays highlighted at any amount.
+function addSulphites(items: ResolvedIngredient[]): ResolvedIngredient[] {
+  return items.map((item) => {
+    if (!item.sulphiteMg || isZero(item.sulphiteMg)) return item;
+    const allergens = ALLERGEN_IDS.filter(
+      (id) => id === "sulphites" || item.allergens.includes(id),
+    );
+    return item.children
+      ? { ...item, allergens, children: addSulphites(item.children) }
+      : { ...item, allergens };
+  });
+}
+
 //#endregion
 
 export function createIngredientsList(
   ingredients: Ingredient[],
   options: Partial<DeclarationOptions> = {},
 ): ResolvedIngredient[] {
-  return present(resolve(ingredients, undefined, "", resolveOptions(options)));
+  const items = present(resolve(ingredients, undefined, "", resolveOptions(options)));
+  const grams = sum(items.map((item) => item.weight));
+  const sulphiteMg = sulphiteOf(items).sulphiteMg;
+  // mg / kg > limit, without dividing: mg / (g / 1000) > limit  <=>  mg * 1000 > limit * g
+  const over =
+    sulphiteMg &&
+    compare(multiply(sulphiteMg, decimal("1000")), multiply(SULPHITE_LIMIT, grams)) > 0;
+  return over ? addSulphites(items) : items;
 }
